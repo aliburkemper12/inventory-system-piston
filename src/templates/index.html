@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<header>
+<title>IT Inventory</title>
+<header>
+<html>
+    <body>
+        This is my inventory system
+        <table style="width:100%">
+            <tr>
+                <th>Name<th>
+                <th>Quantity<th>
+            </tr>
+            {%for item in data%}
+            <tr> 
+                <th>{{ item[0] }}</th>
+                <th>{{ item[1] }}</th>
+            </tr>
+            {%endfor%}
+        </table>
+        <h4>
+            <form action="{{ url_for("index")}}" method="post">
+            <input type="text" id="locate" name="fname" placeholder="Enter Name">
+            <button type="submit">Enter</button>
+        </h4>
+       <h4>
+            <form action="{{url_for("index")}}" method="get">
+            <button type="back">Show All</button>
+        </h4>
+    </body>
+</html>
