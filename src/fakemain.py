@@ -1,8 +1,9 @@
 import sqlite3
 import inventory
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, flash, redirect
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'roll_tide'
 
 def get_db_connection():
     conn = sqlite3.connect('inventory.db')
@@ -31,7 +32,7 @@ def index():
 def edit():
     conn = get_db_connection()
     cursor = conn.cursor()
-    name = request.form.get("name")
+    name = request.form["name"]
 
     print(name)
     data = cursor.execute('SELECT * FROM item WHERE name = ?', (name,)).fetchall()
@@ -48,12 +49,14 @@ def ajax_edit():
     new_name = request.form.get("new_name")
     
     print(name)
+    print(new_name)
     inventory.update_name(conn, name, new_name)
     data = cursor.execute('SELECT * FROM item WHERE name = ?', (name,)).fetchall()
         
     conn.close()
         
-    return render_template("edit.html", data=data)
+    # return render_template("edit.html", data=data)
+    return jsonify(item_name=new_name)
 
 if __name__ == "__main__":
     app.run(port = 5000)

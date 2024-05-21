@@ -15,12 +15,11 @@
             </tr>
             {%for item in data%}
             <tr>
-                <form>
                 <td></td>
-                <td width="20%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td>
+                <td width="20%"><input id="item_name" type="hidden" name="name" value="{{item[0]}}">{{ item[0] }}</td></form>
                 <td width="20%">{{ item[1] }}</td>
                 <td width="20%">{{ item[2] }}</td>
-                <td width="20%">{{ item[3] }}</td></form>
+                <td width="20%">{{ item[3] }}</td>
             </tr>
             {%endfor%}
         </table>
@@ -37,7 +36,7 @@
             <button type="submit">Show All</button>
             </form>
         </h4>
-        <!-- <script>
+        <script>
             function fetchData() {
                 fetch('/ajax_edit')
                     .then(response => response.json())
@@ -47,7 +46,7 @@
                     })
                     .catch(error => console.error('Error:', error));
             }
-            fetchDate();
-        </script> -->
+            fetchData();
+        </script>
     </body>
 </html>
