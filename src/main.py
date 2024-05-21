@@ -26,8 +26,8 @@ if(inp == 'L'):
     print('Would you like to edit this item?\nY for yes N for no')
     ans = input()
     if ans == 'Y':
-        print('Would you like to change quantity, name, or delete item?\n')
-        print('1 for quantity, 2 for name, 3 for delete')
+        print('Would you like to change quantity, name, description, or delete item?\n')
+        print('1 for quantity, 2 for name, 3 for description, 4 for delete')
         change = input()
         if change == '1':
             print('Enter new quantity:')
@@ -38,6 +38,10 @@ if(inp == 'L'):
             new_name = input()
             inventory.update_name(conn, name, new_name)
         if change == '3':
+            print('Enter new description:')
+            description = input()
+            inventory.update_description(conn, name, description)
+        if change == '4':
             print('Are you sure you want to delete?\nY for yes, N for no\n')
             ans = input()
             if ans == 'Y':
@@ -54,8 +58,12 @@ if(inp == 'E'):
     print('Enter quantity of item to enter\n')
     quantity = input()
     print()
+    
+    print('Enter description of item to enter\n')
+    description = input()
+    print()
 
-    inventory.insert_command(conn, name, quantity)
+    inventory.insert_command(conn, name, quantity, description)
     inventory.print_items()
 
 inventory.conn.close()

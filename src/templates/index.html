@@ -4,27 +4,36 @@
 <header>
 <html>
     <body>
-        This is my inventory system
+        Piston IT Inventory
+        <h4 align="right">
+            <form action="{{ url_for("index")}}" method="post">
+            <input type="text" id="locate" name="fname" placeholder="Look up">
+            <button type="submit">Enter</button>
+            </form>
+        </h4>
+       <h4 align="right">
+            <form action="{{url_for("index")}}">
+            <button type="submit">Show All</button>
+            </form>
+        </h4>
         <table style="width:100%">
             <tr>
-                <th>Name<th>
-                <th>Quantity<th>
+                <th width="20%" align="left"></th>
+                <th width="20%" align="left">Name</th>
+                <th width="20%" align="left">Quantity</th>
+                <th width="20%" align="left">Description</th>
+                <th width="20%" align="left">Date</th>
             </tr>
             {%for item in data%}
             <tr> 
-                <th>{{ item[0] }}</th>
-                <th>{{ item[1] }}</th>
+                <form action="{{ url_for("edit")}}" method="post">
+                <td width="20%"><button type="submit">Edit</button></td>
+                <td width="20%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td>
+                <td width="20%">{{ item[1] }}</td>
+                <td width="20%">{{ item[2] }}</td>
+                <td width="20%">{{ item[3] }}</td></form>
             </tr>
             {%endfor%}
         </table>
-        <h4>
-            <form action="{{ url_for("index")}}" method="post">
-            <input type="text" id="locate" name="fname" placeholder="Enter Name">
-            <button type="submit">Enter</button>
-        </h4>
-       <h4>
-            <form action="{{url_for("index")}}" method="get">
-            <button type="back">Show All</button>
-        </h4>
     </body>
 </html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<header>
+<title>IT Inventory</title>
+<header>
+<html>
+    <body>
+        This is the edit page
+        <table style="width:100%">
+            <tr>
+                <th width="20%" align="left"></th>
+                <th width="20%" align="left">Name</th>
+                <th width="20%" align="left">Quantity</th>
+                <th width="20%" align="left">Description</th>
+                <th width="20%" align="left">Date</th>
+            </tr>
+            {%for item in data%}
+            <tr>
+                <form>
+                <td></td>
+                <td width="20%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td>
+                <td width="20%">{{ item[1] }}</td>
+                <td width="20%">{{ item[2] }}</td>
+                <td width="20%">{{ item[3] }}</td></form>
+            </tr>
+            {%endfor%}
+        </table>
+        <h4>
+            <form action="{{ url_for("index")}}" method="post">
+            <input type="text" id="locate" name="fname" placeholder="Look up">
+            <button type="submit">Enter</button></form>
+            <form action="/ajax_edit" method="post">
+            <input type="text" id="change" name="new_name" placeholder="New name">
+            <button type="submit">Enter</button></form>
+        </h4>
+       <h4>
+            <form action="{{url_for("index")}}">
+            <button type="submit">Show All</button>
+            </form>
+        </h4>
+        <!-- <script>
+            function fetchData() {
+                fetch('/ajax_edit')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Update the data-container with the response
+                        document.getElementById('item_name').innerText = data.new_name;
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+            fetchDate();
+        </script> -->
+    </body>
+</html>

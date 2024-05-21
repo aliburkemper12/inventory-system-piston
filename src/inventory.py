@@ -1,6 +1,7 @@
 # different page for each item
 # home screen where you can add or delete item categories
 import sqlite3
+from datetime import date
 
 def create_db():
     global conn, cursor
@@ -18,16 +19,18 @@ def create_db():
 
     create_query = '''CREATE TABLE IF NOT EXISTS item(
     name TEXT NOT NULL PRIMARY KEY,
-    quantity INTEGER
+    quantity INTEGER,
+    description TEXT,
+    date updated TEXT NOT NULL
     );
     '''
     cursor.execute(create_query)
     print("Table created!")
 
-def insert_command(conn, name, quantity):
-  command = 'INSERT INTO item VALUES (?, ?)'
+def insert_command(conn, name, quantity, description):
+  command = 'INSERT INTO item VALUES (?, ?, ?, ?)'
   cur = conn.cursor()
-  cur.execute(command, (name, quantity))
+  cur.execute(command, (name, quantity, description, str(date.today())))
   conn.commit()
 
 def find(conn, name):
@@ -44,6 +47,12 @@ def update_quantity(conn, quantity, name):
 def update_name(conn, name, new_name):
     command = 'UPDATE item SET name = ? WHERE name = ?;'
     cursor.execute(command, (new_name, name))
+    conn.commit()
+    print_items()
+    
+def update_description(conn, name, description):
+    command = 'UPDATE item SET description = ? WHERE name = ?;'
+    cursor.execute(command, (description, name))
     conn.commit()
     print_items()
 
