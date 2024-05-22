@@ -5,41 +5,40 @@
 <html>
     <body>
         This is the edit page
+        <div display="inline-block">
+            <h4>
+                <form action="{{url_for("index")}}">
+                <button type="submit">Show All</button>
+                </form>
+            </h4>
+            <h4 align="right">
+                <form action="{{ url_for("index")}}" method="post">
+                <input type="text" id="locate" name="fname" placeholder="Look up">
+                <button type="submit">Enter</button></form>
+            </h4>
+        </div>
         <table style="width:100%">
             <tr>
                 <th width="20%" align="left"></th>
                 <th width="20%" align="left">Name</th>
                 <th width="20%" align="left">Quantity</th>
                 <th width="20%" align="left">Description</th>
-                <th width="20%" align="left">Date</th>
+                <th width="20%" align="left">Date Updated</th>
             </tr>
             {%for item in data%}
             <tr>
                 <td></td>
-                <form id="new_name" action="{{ url_for("ajax_edit_n")}}" method="post">
-                <!--<input type="text" id="change" name="new_name" placeholder="New name">-->
-                <!--<td width="20%"><button type="submit">Enter</button></td> -->
+                <form id="new_name" action="{{ url_for("field_edit")}}" method="post">
                 <td width="20%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td>
                 <td width="20%">{{ item[1] }}</td>
                 <td width="20%">{{ item[2] }}</td>
-                <td width="20%">{{ item[3] }}</td>
+                <td width="20%">{{ item[3] }}</td></form>
             </tr>
             {%endfor%}
         </table>
-        <h4>
-            <form action="{{ url_for("index")}}" method="post">
-            <input type="text" id="locate" name="fname" placeholder="Look up">
-            <button type="submit">Enter</button></form>
-        </h4>
-       <h4>
-            <form action="{{url_for("index")}}">
-            <button type="submit">Show All</button>
-            </form>
-        </h4>
-        <h4>
+        <h4 align="center">
             <div>
                 <input form="new_name" type="text" id="change" name="new_name" placeholder="New name">
-                <td width="20%"><button form="new_name" type="submit">Enter</button></td>
             </div>
             <div>
                 <input form="new_name" type="text" id="change" name="new_quant" placeholder="New quantity">
@@ -47,8 +46,9 @@
             <div>
                 <input form="new_name" type="text" id="change" name="new_desc" placeholder="New description">
             </div>
+            <td width="20%"><button form="new_name" type="submit">Submit</button></td>
         </h4>
-        <script>
+        <!--<script>
             function fetchData() {
                 fetch('/ajax_edit')
                     .then(response => response.json())
@@ -59,6 +59,6 @@
                     .catch(error => console.error('Error:', error));
             }
             fetchData();
-        </script>
+        </script> -->
     </body>
 </html>

@@ -1,5 +1,6 @@
 import sqlite3
 import inventory
+from datetime import date
 from flask import Flask, render_template, request, jsonify, flash, redirect
 
 app = Flask(__name__)
@@ -17,7 +18,6 @@ def index():
     conn = get_db_connection()
     cursor = conn.cursor()
     if request.method == "POST":
-        print('post')
         name = request.form.get("fname")
         data = cursor.execute('SELECT * FROM item WHERE name = ?', (name,)).fetchall()
  
@@ -28,21 +28,59 @@ def index():
         
     return render_template("index.html", data=data)
 
+@app.route('/delete', methods=["GET", "POST"])
+def delete():
+    print('in delete')
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    name = request.form["name"]
+    
+    #delete
+    command = 'DELETE FROM item WHERE name = ?'
+    cursor.execute(command, (name,))
+    conn.commit()
+    
+    data = cursor.execute('SELECT * FROM item').fetchall()
+    conn.close()
+    
+    return render_template("index.html", data=data)
+
+@app.route('/add', methods=["GET", "POST"])
+def add():
+    if request.method == "POST":
+        print('in add')
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        new_name = request.form.get("new_name")
+        new_quant = request.form.get("new_quant")
+        new_desc = request.form.get("new_desc")
+        
+        if new_name and new_quant and new_desc:
+            command = 'INSERT INTO item VALUES (?, ?, ?, ?)'
+            cursor.execute(command, (new_name, new_quant, new_desc, str(date.today())))
+            conn.commit()
+            data = cursor.execute('SELECT * FROM item').fetchall()
+            conn.close()
+            
+            return render_template("index.html", data=data)
+
+    
+    
+    return render_template("add.html")
+
 @app.route('/edit', methods=["GET", "POST"])
 def edit():
     conn = get_db_connection()
     cursor = conn.cursor()
     name = request.form["name"]
 
-    print(name)
     data = cursor.execute('SELECT * FROM item WHERE name = ?', (name,)).fetchall()
-        
     conn.close()
         
     return render_template("edit.html", data=data)
 
-@app.route("/ajax_edit_n", methods=["POST"])
-def ajax_edit_n():
+@app.route("/field_edit", methods=["POST"])
+def field_edit():
     data = {}
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -52,24 +90,25 @@ def ajax_edit_n():
     new_desc = request.form.get("new_desc")
     
     if new_name != "":
-        print('doing new name:')
         command = 'UPDATE item SET name = ? WHERE name = ?;'
         cursor.execute(command, (new_name, name))
         conn.commit()
         name = new_name
     
     if new_quant != "":
-        print('doing new quant:')
         command = 'UPDATE item SET quantity = ? WHERE name = ?;'
         cursor.execute(command, (new_quant, name))
         conn.commit()
     
     if new_desc != "":
-        print('doing new desc:')
         command = 'UPDATE item SET description = ? WHERE name = ?;'
         cursor.execute(command, (new_desc, name))
         conn.commit()
     
+    if new_name or new_quant or new_desc:
+        command = 'UPDATE item SET date = ? WHERE name = ?;'
+        cursor.execute(command, (str(date.today()), name))
+        conn.commit()
     data = cursor.execute('SELECT * FROM item WHERE name = ?', (name,)).fetchall()
     conn.close()
     return render_template("edit.html", data=data)

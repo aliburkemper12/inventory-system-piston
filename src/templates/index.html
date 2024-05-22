@@ -5,16 +5,17 @@
 <html>
     <body>
         Piston IT Inventory
-        <h4 align="right">
-            <form action="{{ url_for("index")}}" method="post">
-            <input type="text" id="locate" name="fname" placeholder="Look up">
-            <button type="submit">Enter</button>
-            </form>
-        </h4>
-       <h4 align="right">
-            <form action="{{url_for("index")}}">
-            <button type="submit">Show All</button>
-            </form>
+        <h4>
+            <div align="right">
+                <form action="{{ url_for("index")}}" method="post">
+                <input type="text" id="locate" name="fname" placeholder="Search by Name">
+                <button type="submit">Enter</button>
+                </form>
+            </div>
+            <div align="center">
+                <form action="{{ url_for("add")}}">
+                <button type="submit">Add</button>
+            </div>
         </h4>
         <table style="width:100%">
             <tr>
@@ -22,16 +23,20 @@
                 <th width="20%" align="left">Name</th>
                 <th width="20%" align="left">Quantity</th>
                 <th width="20%" align="left">Description</th>
-                <th width="20%" align="left">Date</th>
+                <th width="20%" align="left">Date Updated</th>
             </tr>
             {%for item in data%}
             <tr> 
                 <form action="{{ url_for("edit")}}" method="post">
                 <td width="20%"><button type="submit">Edit</button></td>
-                <td width="20%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td>
+                <form id="name" method="post">
+                <td width="20%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td></form>
                 <td width="20%">{{ item[1] }}</td>
                 <td width="20%">{{ item[2] }}</td>
                 <td width="20%">{{ item[3] }}</td></form>
+                <form action="{{ url_for("delete")}}" method="post">
+                <input type="hidden" name="name" value="{{ item[0] }}">
+                <td width="20%"><button type="submit">Delete</button></td></form>
             </tr>
             {%endfor%}
         </table>

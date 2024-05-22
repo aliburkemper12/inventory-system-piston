@@ -32,6 +32,11 @@ def insert_command(conn, name, quantity, description):
   cur = conn.cursor()
   cur.execute(command, (name, quantity, description, str(date.today())))
   conn.commit()
+  
+def update_time(conn, name):
+    command = 'UPDATE item SET date = ? WHERE name = ?;'
+    cursor.execute(command, (str(date.today()), name))
+    conn.commit()
 
 def find(conn, name):
     records = cursor.execute('SELECT * FROM item WHERE name = ?', (name,))
