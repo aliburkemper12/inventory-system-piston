@@ -16,7 +16,10 @@
             {%for item in data%}
             <tr>
                 <td></td>
-                <td width="20%"><input id="item_name" type="hidden" name="name" value="{{item[0]}}">{{ item[0] }}</td></form>
+                <form id="new_name" action="{{ url_for("ajax_edit_n")}}" method="post">
+                <!--<input type="text" id="change" name="new_name" placeholder="New name">-->
+                <!--<td width="20%"><button type="submit">Enter</button></td> -->
+                <td width="20%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td>
                 <td width="20%">{{ item[1] }}</td>
                 <td width="20%">{{ item[2] }}</td>
                 <td width="20%">{{ item[3] }}</td>
@@ -27,14 +30,23 @@
             <form action="{{ url_for("index")}}" method="post">
             <input type="text" id="locate" name="fname" placeholder="Look up">
             <button type="submit">Enter</button></form>
-            <form action="/ajax_edit" method="post">
-            <input type="text" id="change" name="new_name" placeholder="New name">
-            <button type="submit">Enter</button></form>
         </h4>
        <h4>
             <form action="{{url_for("index")}}">
             <button type="submit">Show All</button>
             </form>
+        </h4>
+        <h4>
+            <div>
+                <input form="new_name" type="text" id="change" name="new_name" placeholder="New name">
+                <td width="20%"><button form="new_name" type="submit">Enter</button></td>
+            </div>
+            <div>
+                <input form="new_name" type="text" id="change" name="new_quant" placeholder="New quantity">
+            </div>
+            <div>
+                <input form="new_name" type="text" id="change" name="new_desc" placeholder="New description">
+            </div>
         </h4>
         <script>
             function fetchData() {
