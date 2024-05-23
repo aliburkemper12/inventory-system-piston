@@ -120,6 +120,31 @@ def sort():
     print(row)
     
     if row == '1':
+        data = cursor.execute('SELECT * FROM item ORDER BY name').fetchall()
+        conn.close()
+        
+    if row == '2':
+        data = cursor.execute('SELECT * FROM item ORDER BY quantity DESC').fetchall()
+        conn.close()
+        
+    if row == '3':
+        data = cursor.execute('SELECT * FROM item ORDER BY description').fetchall()
+        conn.close()
+        
+    if row == '4':
+        data = cursor.execute('SELECT * FROM item ORDER BY date DESC').fetchall()
+        conn.close()
+        
+    return render_template("index.html", data=data) 
+
+@app.route("/sort_asc", methods=["GET", "POST"])
+def sort_asc():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    row = request.form.get("name")
+    print(row)
+    
+    if row == '1':
         data = cursor.execute('SELECT * FROM item ORDER BY name ASC').fetchall()
         conn.close()
         
@@ -133,6 +158,31 @@ def sort():
         
     if row == '4':
         data = cursor.execute('SELECT * FROM item ORDER BY date ASC').fetchall()
+        conn.close()
+        
+    return render_template("index.html", data=data) 
+
+@app.route("/sort_desc", methods=["GET", "POST"])
+def sort_desc():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    row = request.form.get("name")
+    print(row)
+    
+    if row == '1':
+        data = cursor.execute('SELECT * FROM item ORDER BY name DESC').fetchall()
+        conn.close()
+        
+    if row == '2':
+        data = cursor.execute('SELECT * FROM item ORDER BY quantity DESC').fetchall()
+        conn.close()
+        
+    if row == '3':
+        data = cursor.execute('SELECT * FROM item ORDER BY description DESC').fetchall()
+        conn.close()
+        
+    if row == '4':
+        data = cursor.execute('SELECT * FROM item ORDER BY date DESC').fetchall()
         conn.close()
         
     return render_template("index.html", data=data) 
