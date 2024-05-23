@@ -1,0 +1,134 @@
+body {
+    background-color: #2b284c;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #ebf7ff;
+}
+.title {
+    padding-top: 5px;
+    font-size: 35px;
+    text-align: center;
+}
+#locate {
+    border-radius: 2px;
+    border: none;
+    height: 30px;
+    width: 250px;
+    background-color: #3e4568;
+    color: #ebf7ff;
+    padding-left: 3px;
+    font-size: 15px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+#locate::placeholder {
+    color: #ebf7ff;
+    padding-left: 3px;
+    font-size: 15px;
+}
+table {
+    font-size: 20px;
+}
+button {
+    background: #3e4568;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;    cursor: pointer;
+    color: #ebf7ff;
+    border-radius: 7px;
+    box-shadow: none;
+    border: none;
+}
+button:hover {
+    background-color: #ebf7ff;
+    color: black;
+}
+.add {
+    margin-top: 10px;
+    background-color: #3e4568;
+    height: 25px;
+    width: 60px;
+    font-size: 20px;
+}
+.edit {
+    background-color: transparent;
+    margin-right: 5px;
+    border: none;
+}
+.edit img{
+    height: 15px;
+    width: auto;
+}
+.delete {
+    background-color: tomato;
+    color: black;
+}
+.delete:hover {
+    background-color: #ebf7ff;
+    color: black;
+}
+tr th {
+    color: rgb(72, 120, 241);
+    font-size: 23px;
+    padding-left: 8px;
+}
+tr:nth-of-type(even) {
+    background-color: #3a3671;
+}
+td {
+    padding-left: 3px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 8px;
+}
+.data_row:hover {
+    background-color: #4d5379;
+    color: #c5d962;
+}
+#new {
+    border-radius: 2px;
+    border: none;
+    height: 40px;
+    width: 400px;
+    background-color: #3e4568;
+    color: #ebf7ff;
+    margin: 5px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+    padding-left: 3px;
+}
+#new::placeholder {
+    color: #ebf7ff;
+    font-size: 20px;
+    padding-left: 3px;
+}
+.submit {
+    margin-top: 10px;
+    background-color: #3e4568;
+    font-size: 19px;
+    padding: 10px 10px;
+}
+#container {
+    margin-top: 5%;
+}
+#all {
+    font-size: 20px;
+    padding: 5px 10px;
+}
+.enter {
+    background-color: #3e4568;
+    font-size: 18px;
+    padding: 5px 10px;
+}
+#addBody {
+    margin-top: 5%;
+    font-size: 25px;
+}
+.header {
+    background-color: transparent;
+    color: rgb(72, 120, 241);
+    font-size: 23px;
+    padding-left: 8px;
+    margin: 0;
+    padding: 0;
+}
+.header:hover{
+    background-color: transparent;
+    color: #de2626;
+}

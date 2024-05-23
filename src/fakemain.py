@@ -81,7 +81,6 @@ def edit():
 
 @app.route("/field_edit", methods=["POST"])
 def field_edit():
-    data = {}
     conn = get_db_connection()
     cursor = conn.cursor()
     name = request.form.get("name")
@@ -112,6 +111,31 @@ def field_edit():
     data = cursor.execute('SELECT * FROM item WHERE name = ?', (name,)).fetchall()
     conn.close()
     return render_template("edit.html", data=data)
+
+@app.route("/sort", methods=["GET", "POST"])
+def sort():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    row = request.form.get("name")
+    print(row)
+    
+    if row == '1':
+        data = cursor.execute('SELECT * FROM item ORDER BY name ASC').fetchall()
+        conn.close()
+        
+    if row == '2':
+        data = cursor.execute('SELECT * FROM item ORDER BY quantity ASC').fetchall()
+        conn.close()
+        
+    if row == '3':
+        data = cursor.execute('SELECT * FROM item ORDER BY description ASC').fetchall()
+        conn.close()
+        
+    if row == '4':
+        data = cursor.execute('SELECT * FROM item ORDER BY date ASC').fetchall()
+        conn.close()
+        
+    return render_template("index.html", data=data) 
 
 if __name__ == "__main__":
     app.run(port = 5000)

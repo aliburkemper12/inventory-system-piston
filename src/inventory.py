@@ -21,7 +21,7 @@ def create_db():
     name TEXT NOT NULL PRIMARY KEY,
     quantity INTEGER,
     description TEXT,
-    date updated TEXT NOT NULL
+    date TEXT NOT NULL
     );
     '''
     cursor.execute(create_query)
