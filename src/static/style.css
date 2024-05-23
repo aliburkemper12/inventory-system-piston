@@ -3,6 +3,15 @@ body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: #ebf7ff;
 }
+.error {
+    color: #de2626;
+}
+.input {
+    margin-bottom: 5px;
+}
+.login_container {
+    margin-top: 15%;
+}
 .title {
     padding-top: 5px;
     font-size: 35px;

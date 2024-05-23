@@ -1,7 +1,8 @@
 import sqlite3
-import inventory
+import db_func
+from waitress import serve
 from datetime import date
-from flask import Flask, render_template, request, jsonify, flash, redirect
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'roll_tide'
@@ -9,12 +10,28 @@ app.config['SECRET_KEY'] = 'roll_tide'
 def get_db_connection():
     conn = sqlite3.connect('inventory.db')
     conn.row_factory = sqlite3.Row
-    inventory.create_db()
+    db_func.create_db()
     
     return conn
 
 @app.route('/', methods=["GET", "POST"])
-def index():
+def login():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        if username == 'piston-it' and password =='1234':
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            data = cursor.execute('SELECT * FROM item').fetchall()
+            conn.close()
+            
+            return render_template("index.html", data=data)
+        return render_template("login.html", error='Invalid Username or Password')
+    return render_template("login.html", error="")
+        
+
+@app.route('/home', methods=["GET", "POST"])
+def home():
     conn = get_db_connection()
     cursor = conn.cursor()
     if request.method == "POST":

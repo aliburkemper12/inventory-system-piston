@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>IT Inventory</title>
+        <link rel="stylesheet" type="text/css" href="static/style.css">
+    </head>
+    <body align="center" class="login_container">
+        <h1 class="title">Login</h2>
+        <h3 class="error">{{ error }}</h3>
+        <form action="{{ url_for("login")}}" method="post">
+        <div class="input"><input type="text" id="locate" name="username" placeholder="Enter username"></div>
+        <div class="input"><input type="password" id="locate" name="password" placeholder="Enter password"></div>
+        <button class="enter" type="submit">Enter</button></form>
+    <body>
+</html>

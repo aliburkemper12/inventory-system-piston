@@ -24,9 +24,16 @@ def create_db():
     date TEXT NOT NULL
     );
     '''
+    create_login = '''CREATE TABLE IF NOT EXISTS login(
+        username TEXT NOT NULL PRIMARY KEY,
+        password TEXT NOT NULL
+        );
+        '''
     cursor.execute(create_query)
+    cursor.execute(create_login)
     print("Table created!")
-
+    print("Login created!")
+    
 def insert_command(conn, name, quantity, description):
   command = 'INSERT INTO item VALUES (?, ?, ?, ?)'
   cur = conn.cursor()
