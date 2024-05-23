@@ -7,4 +7,6 @@ This software has a login page, a home page that displays all current items in t
 
 Deployed locally for the IT deparment to utilize to keep track of the number of imporant items such as labels which are used on the lines everyday, and if they were to run out would halt production.
 
-![alt text](src/static/add_snip.png)
+![Home page](src/static/home_snip.png)
+![Add page](src/static/add_snip.png)
+![Edit page](src/static/edit_snip.png)
