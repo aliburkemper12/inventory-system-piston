@@ -23,7 +23,7 @@
         <div id="table_container">
             <table style="width:100%">
                 <tr>
-                    <th width="5%" align="left"></th>
+                    <th width="3%" align="left"></th>
                     <th width="19%" align="left">Name<div>
                         <div><form action="{{ url_for("sort_desc")}}" method="post">
                         <input type="hidden" name="name" value="1">
@@ -48,7 +48,7 @@
                         <input type="hidden" name="name" value="3">
                         <button class="arrow" type="submit"><img src="static/down.png" alt=""></button></form></div></div>
                     </th>
-                    <th width="19%" align="left">Date Updated<div>
+                    <th width="15%" align="left">Date Updated<div>
                         <div><form action="{{ url_for("sort_desc")}}" method="post">
                         <input type="hidden" name="name" value="4">
                         <button class="arrow" type="submit"><img src="static/up.png" alt=""></button></form></div>
@@ -56,16 +56,25 @@
                         <input type="hidden" name="name" value="4">
                         <button class="arrow" type="submit"><img src="static/down.png" alt=""></button></form></div></div>
                     </th>
+                    <th width="15%" align="left">Location<div>
+                        <div><form action="{{ url_for("sort_desc")}}" method="post">
+                        <input type="hidden" name="name" value="5">
+                        <button class="arrow" type="submit"><img src="static/up.png" alt=""></button></form></div>
+                        <div><form action="{{ url_for("sort_asc")}}" method="post">
+                        <input type="hidden" name="name" value="5">
+                        <button class="arrow" type="submit"><img src="static/down.png" alt=""></button></form></div></div>
+                    </th>
                 </tr>
                 {%for item in data%}
                 <tr class="data_row"> 
                     <form action="{{ url_for("edit")}}" method="post">
-                    <td width="10%" align="right"><button class="edit" type="submit"><img src="static/edit_icon.png" alt=""></button></td>
+                    <td width="5%" align="right"><button class="edit" type="submit"><img src="static/edit_icon.png" alt=""></button></td>
                     <form id="name" method="post">
                     <td width="20%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td></form>
                     <td width="20%">{{ item[1] }}</td>
                     <td width="20%">{{ item[2] }}</td>
-                    <td width="26%">{{ item[3] }}</td></form>
+                    <td width="15%">{{ item[3] }}</td>
+                    <td width="15%">{{ item[4] }}</td></form>
                     <form action="{{ url_for("delete")}}" method="post">
                     <input type="hidden" name="name" value="{{ item[0] }}">
                     <td width="auto" align="left"><button class="delete" type="submit">Delete</button></td></form>

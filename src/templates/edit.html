@@ -19,18 +19,20 @@
         </div>
         <table style="width:100%">
             <tr>
-                <th width="25%" align="left">Name</th>
-                <th width="25%" align="left">Quantity</th>
-                <th width="25%" align="left">Description</th>
-                <th width="21%" align="left">Date Updated</th>
+                <th width="20%" align="left">Name</th>
+                <th width="20%" align="left">Quantity</th>
+                <th width="20%" align="left">Description</th>
+                <th width="20%" align="left">Date Updated</th>
+                <th width="20%" align="left">Location</th>
             </tr>
             {%for item in data%}
             <tr>
                 <form id="new_name" action="{{ url_for("field_edit")}}" method="post">
-                <td width="24%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td>
-                <td width="24%">{{ item[1] }}</td>
-                <td width="24%">{{ item[2] }}</td>
-                <td width="20%">{{ item[3] }}</td></form>
+                <td width="20%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td>
+                <td width="20%">{{ item[1] }}</td>
+                <td width="20%">{{ item[2] }}</td>
+                <td width="20%">{{ item[3] }}</td>
+                <td width="20%">{{ item[4] }}</td></form>
                 <form action="{{ url_for("delete")}}" method="post">
                 <input type="hidden" name="name" value="{{ item[0] }}">
                 <td width="auto" align="left"><button class="delete" type="submit">Delete</button></td></form>
@@ -46,6 +48,9 @@
             </div>
             <div>
                 <input id="new" form="new_name" type="text" id="change" name="new_desc" placeholder="New description">
+            </div>
+            <div>
+                <input id="new" form="new_name" type="text" id="change" name="new_location" placeholder="New location">
             </div>
             <td width="20%"><button form="new_name" type="submit" class="submit">Submit</button></td>
         </h4>

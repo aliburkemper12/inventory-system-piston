@@ -71,10 +71,11 @@ def add():
         new_name = request.form.get("new_name")
         new_quant = request.form.get("new_quant")
         new_desc = request.form.get("new_desc")
+        new_location = request.form.get("new_location")
         
-        if new_name and new_quant and new_desc:
-            command = 'INSERT INTO item VALUES (?, ?, ?, ?)'
-            cursor.execute(command, (new_name, new_quant, new_desc, str(date.today())))
+        if new_name and new_quant and new_desc and new_location:
+            command = 'INSERT INTO item VALUES (?, ?, ?, ?, ?)'
+            cursor.execute(command, (new_name, new_quant, new_desc, str(date.today()), new_location))
             conn.commit()
             data = cursor.execute('SELECT * FROM item').fetchall()
             conn.close()
@@ -104,6 +105,7 @@ def field_edit():
     new_name = request.form.get("new_name")
     new_quant = request.form.get("new_quant")
     new_desc = request.form.get("new_desc")
+    new_location = request.form.get("new_location")
     
     if new_name != "":
         command = 'UPDATE item SET name = ? WHERE name = ?;'
@@ -120,8 +122,13 @@ def field_edit():
         command = 'UPDATE item SET description = ? WHERE name = ?;'
         cursor.execute(command, (new_desc, name))
         conn.commit()
+        
+    if new_location != "":
+        command = 'UPDATE item SET location = ? WHERE name = ?;'
+        cursor.execute(command, (new_location, name))
+        conn.commit()
     
-    if new_name or new_quant or new_desc:
+    if new_name or new_quant or new_desc or new_location:
         command = 'UPDATE item SET date = ? WHERE name = ?;'
         cursor.execute(command, (str(date.today()), name))
         conn.commit()
@@ -152,6 +159,10 @@ def sort():
         data = cursor.execute('SELECT * FROM item ORDER BY date DESC').fetchall()
         conn.close()
         
+    if row == '5':
+        data = cursor.execute('SELECT * FROM item ORDER BY location DESC').fetchall()
+        conn.close()
+        
     return render_template("index.html", data=data) 
 
 @app.route("/sort_asc", methods=["GET", "POST"])
@@ -177,6 +188,10 @@ def sort_asc():
         data = cursor.execute('SELECT * FROM item ORDER BY date ASC').fetchall()
         conn.close()
         
+    if row == '5':
+        data = cursor.execute('SELECT * FROM item ORDER BY location ASC').fetchall()
+        conn.close()
+        
     return render_template("index.html", data=data) 
 
 @app.route("/sort_desc", methods=["GET", "POST"])
@@ -200,6 +215,10 @@ def sort_desc():
         
     if row == '4':
         data = cursor.execute('SELECT * FROM item ORDER BY date DESC').fetchall()
+        conn.close()
+        
+    if row == '5':
+        data = cursor.execute('SELECT * FROM item ORDER BY location DESC').fetchall()
         conn.close()
         
     return render_template("index.html", data=data) 
