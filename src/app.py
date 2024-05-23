@@ -45,6 +45,17 @@ def home():
         
     return render_template("index.html", data=data)
 
+@app.route('/location', methods=["GET", "POST"])
+def location():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    location = request.form.get("flocation")
+        
+    data = cursor.execute('SELECT * FROM item WHERE location = ?', (location)).fetchall()
+    conn.close()
+        
+    return render_template("index.html", data=data)
+
 @app.route('/delete', methods=["GET", "POST"])
 def delete():
     print('in delete')
