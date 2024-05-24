@@ -53,8 +53,9 @@ def location():
         
     data = cursor.execute('SELECT * FROM item WHERE location = ?', (location,)).fetchall()
     conn.close()
+
         
-    return render_template("index.html", data=data)
+    return render_template("sub.html", data=data)
 
 @app.route('/delete', methods=["GET", "POST"])
 def delete():
@@ -146,34 +147,34 @@ def field_edit():
     conn.close()
     return render_template("edit.html", data=data)
 
-@app.route("/sort", methods=["GET", "POST"])
-def sort():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    row = request.form.get("name")
-    print(row)
+# @app.route("/sort", methods=["GET", "POST"])
+# def sort():
+#     conn = get_db_connection()
+#     cursor = conn.cursor()
+#     row = request.form.get("name")
+#     print(row)
     
-    if row == '1':
-        data = cursor.execute('SELECT * FROM item ORDER BY name').fetchall()
-        conn.close()
+#     if row == '1':
+#         data = cursor.execute('SELECT * FROM item ORDER BY name').fetchall()
+#         conn.close()
         
-    if row == '2':
-        data = cursor.execute('SELECT * FROM item ORDER BY quantity DESC').fetchall()
-        conn.close()
+#     if row == '2':
+#         data = cursor.execute('SELECT * FROM item ORDER BY quantity DESC').fetchall()
+#         conn.close()
         
-    if row == '3':
-        data = cursor.execute('SELECT * FROM item ORDER BY description').fetchall()
-        conn.close()
+#     if row == '3':
+#         data = cursor.execute('SELECT * FROM item ORDER BY description').fetchall()
+#         conn.close()
         
-    if row == '4':
-        data = cursor.execute('SELECT * FROM item ORDER BY date DESC').fetchall()
-        conn.close()
+#     if row == '4':
+#         data = cursor.execute('SELECT * FROM item ORDER BY date DESC').fetchall()
+#         conn.close()
         
-    if row == '5':
-        data = cursor.execute('SELECT * FROM item ORDER BY location DESC').fetchall()
-        conn.close()
+#     if row == '5':
+#         data = cursor.execute('SELECT * FROM item ORDER BY location DESC').fetchall()
+#         conn.close()
         
-    return render_template("index.html", data=data) 
+#     return render_template("index.html", data=data) 
 
 @app.route("/sort_asc", methods=["GET", "POST"])
 def sort_asc():
@@ -231,7 +232,60 @@ def sort_desc():
         data = cursor.execute('SELECT * FROM item ORDER BY location DESC').fetchall()
         conn.close()
         
-    return render_template("index.html", data=data) 
+    return render_template("index.html", data=data)
+
+@app.route("/sort_asc_sub", methods=["GET", "POST"])
+def sort_asc_sub():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    row = request.form.get("name")
+    location = request.form.get("flocation")
+    print(location)
+    print(row)
+    
+    if row == '1':
+        data = cursor.execute('SELECT * FROM item ORDER BY name ASC WHERE location = ?', (location,)).fetchall()
+        conn.close()
+        
+    if row == '2':
+        data = cursor.execute('SELECT * FROM item ORDER BY quantity ASC WHERE location = ?', (location,)).fetchall()
+        conn.close()
+        
+    if row == '3':
+        data = cursor.execute('SELECT * FROM item ORDER BY description ASC WHERE location = ?', (location,)).fetchall()
+        conn.close()
+        
+    if row == '4':
+        data = cursor.execute('SELECT * FROM item ORDER BY date ASC WHERE location = ?', (location,)).fetchall()
+        conn.close()
+        
+    return render_template("sub.html", data=data) 
+
+@app.route("/sort_desc_sub", methods=["GET", "POST"])
+def sort_desc_sub():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    row = request.form.get("name")
+    location = request.form.get("location")
+    print(row)
+    
+    if row == '1':
+        data = cursor.execute('SELECT * FROM item ORDER BY name DESC WHERE location = ?', (location,)).fetchall()
+        conn.close()
+        
+    if row == '2':
+        data = cursor.execute('SELECT * FROM item ORDER BY quantity DESC WHERE location = ?', (location,)).fetchall()
+        conn.close()
+        
+    if row == '3':
+        data = cursor.execute('SELECT * FROM item ORDER BY description DESC WHERE location = ?', (location,)).fetchall()
+        conn.close()
+        
+    if row == '4':
+        data = cursor.execute('SELECT * FROM item ORDER BY date DESC WHERE location = ?', (location,)).fetchall()
+        conn.close()
+        
+    return render_template("sub.html", data=data) 
 
 if __name__ == "__main__":
     app.run(port = 5000)
