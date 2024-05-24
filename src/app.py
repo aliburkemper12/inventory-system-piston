@@ -2,7 +2,7 @@ import sqlite3
 import db_func
 from waitress import serve
 from datetime import date
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'roll_tide'
@@ -51,7 +51,7 @@ def location():
     cursor = conn.cursor()
     location = request.form.get("flocation")
         
-    data = cursor.execute('SELECT * FROM item WHERE location = ?', (location)).fetchall()
+    data = cursor.execute('SELECT * FROM item WHERE location = ?', (location,)).fetchall()
     conn.close()
         
     return render_template("index.html", data=data)
@@ -92,7 +92,6 @@ def add():
             conn.close()
             
             return render_template("index.html", data=data)
-
     
     
     return render_template("add.html")

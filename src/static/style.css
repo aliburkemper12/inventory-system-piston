@@ -14,8 +14,10 @@ body {
 }
 .title {
     padding-top: 5px;
-    font-size: 35px;
+    font-size: 40px;
     text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 1px #000000;
 }
 #locate {
     border-radius: 2px;
@@ -26,6 +28,7 @@ body {
     color: #ebf7ff;
     padding-left: 3px;
     font-size: 15px;
+    margin-top: 5px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 #locate::placeholder {
@@ -49,20 +52,30 @@ button:hover {
     color: black;
 }
 .add {
-    margin-top: 10px;
+    margin-top: 15px;
+    margin-bottom: 10px;
     background-color: #3e4568;
-    height: 25px;
-    width: 60px;
+    height: 30px;
+    width: 110px;
+    font-size: 20px;
+
+}
+.location {
+    background-color: transparent;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #e7ffb3;
     font-size: 20px;
 }
 .edit {
     background-color: transparent;
     margin-right: 5px;
     border: none;
+    margin-left: 0;
 }
 .edit img{
     height: 15px;
     width: auto;
+    margin: 0;
 }
 .delete {
     background-color: tomato;
@@ -71,6 +84,12 @@ button:hover {
 .delete:hover {
     background-color: #ebf7ff;
     color: black;
+}
+#piston {
+    color: rgb(45, 45, 236);
+}
+#IT {
+    color: #e04343;
 }
 tr th {
     color: rgb(72, 120, 241);
@@ -85,9 +104,8 @@ tr:nth-of-type(even) {
     background-color: #3a3671;
 }
 td {
-    padding-left: 3px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     padding-left: 8px;
 }
 .column {
