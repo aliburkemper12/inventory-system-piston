@@ -5,7 +5,7 @@ Created using, Python, Flask, HTML, CSS, and SQlite. Deployed using Waitress. Fo
 
 This software has a login page, a home page that displays all current items in the inventory, a search feature, a sort feature, and add/delete/edit features.
 
-Deployed locally for the IT deparment to utilize to keep track of the number of items, including labels which are used everyday and are a critical part of production.
+Deployed locally for the IT deparment to keep track of inventory, including labels which are used everyday and are a critical part of production.
 
 Examples:
 Home page
