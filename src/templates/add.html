@@ -4,13 +4,16 @@
 <link rel="stylesheet" type="text/css" href="static/style.css">
 <head>
 <html>
-    <body id="addBody" align="center">
-        <h1>Add New Item</h1>
-        <h4 align="center" id="container">
-            <form action="{{url_for("home")}}">
-            <button id="all" type="submit">Show All</button>
-            </form>
-        </h4>
+    <body>
+        <div id="nav-bar">
+            <a id="nav" href="/home">Home</a></div>
+            <div align="right">
+                <form action="{{ url_for("home")}}" method="post">
+                <input type="text" id="locate" name="fname" placeholder="Search by Name">
+                <button class="enter" type="submit">Enter</button>
+                </form>
+            </div>
+        <h1 align="center">Add New Item</h1>
         <h4 align="center">
             <form action="/add" method="post">
                 <h3>Fill out all forms:</h3>

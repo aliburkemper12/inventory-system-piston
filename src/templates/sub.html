@@ -5,60 +5,27 @@
 </head>
 <html>
     <body>
+        <div id="nav-bar">
+            <a id="nav" href="/home">Home</a>
+            <a id="nav" href="/add">Add</a> </div>
+            <div align="right">
+                <form action="{{ url_for("home")}}" method="post">
+                <input type="text" id="locate" name="fname" placeholder="Search by Name">
+                <button class="enter" type="submit">Enter</button>
+                </form>
+            </div>
         <div class="title">
             <a id="piston">Piston<a> <a id="IT">IT<a> Inventory
         </div>
-        <div align="center">
-            <form action="{{ url_for("home")}}" method="post">
-            <input type="text" id="locate" name="fname" placeholder="Search by Name">
-            <button class="enter" type="submit">Enter</button>
-            </form>
-            <form action="{{ url_for("add")}}">
-            <button class="add" type="submit">Add Item</button></form>
-        </div>
-        <h4 align="center" id="container">
-            <form action="{{url_for("home")}}">
-            <button id="all" type="submit">Show All</button>
-            </form>
-        </h4>
         <div id="table_container">
             <table style="width:100%">
                 <tr>
                     <th width="3%" align="left"></th>
-                    <th width="24%" align="left">Name<div>
-                        <div><form action="{{ url_for("sort_desc_sub")}}" method="post">
-                        <input type="hidden" name="name" value="1">
-                        <button class="arrow" type="submit"><img src="static/up.png" alt=""></button></form></div>
-                        <div><form action="{{ url_for("sort_asc_sub")}}" method="post">
-                        <input type="hidden" name="name" value="1">
-                        <button class="arrow" type="submit"><img src="static/down.png" alt=""></button></form></div></div>
-                    </th>
-                    <th width="10%" align="left">Quantity<div>
-                        <div><form action="{{ url_for("sort_desc_sub")}}" method="post">
-                        <input type="hidden" name="name" value="2">
-                        <button class="arrow" type="submit"><img src="static/up.png" alt=""></button></form></div>
-                        <div><form action="{{ url_for("sort_asc_sub")}}" method="post">
-                        <input type="hidden" name="name" value="2">
-                        <button class="arrow" type="submit"><img src="static/down.png" alt=""></button></form></div></div>
-                    </th>
-                    <th width="24%" align="left">Description<div>
-                        <div><form action="{{ url_for("sort_desc")}}" method="post">
-                        <input type="hidden" name="name" value="3">
-                        <button class="arrow" type="submit"><img src="static/up.png" alt=""></button></form></div>
-                        <div><form action="{{ url_for("sort_asc")}}" method="post">
-                        <input type="hidden" name="name" value="3">
-                        <button class="arrow" type="submit"><img src="static/down.png" alt=""></button></form></div></div>
-                    </th>
-                    <th width="15%" align="left">Date Updated<div>
-                        <div><form action="{{ url_for("sort_desc")}}" method="post">
-                        <input type="hidden" name="name" value="4">
-                        <button class="arrow" type="submit"><img src="static/up.png" alt=""></button></form></div>
-                        <div><form action="{{ url_for("sort_asc")}}" method="post">
-                        <input type="hidden" name="name" value="4">
-                        <button class="arrow" type="submit"><img src="static/down.png" alt=""></button></form></div></div>
-                    </th>
-                    <th width="15%" align="left">Location
-                    </th>
+                    <th width="24%" align="left">Name</th>
+                    <th width="10%" align="left">Quantity</th>
+                    <th width="24%" align="left">Description</th>
+                    <th width="15%" align="left">Date Updated</th>
+                    <th width="15%" align="left">Location</th>
                 </tr>
                 {%for item in data%}
                 <tr class="data_row">
@@ -70,7 +37,7 @@
                     <td width="25%">{{ item[2] }}</td>
                     <td width="15%">{{ item[3] }}</td>
                     <td width="16%">
-                        <form action="{{ url_for("location")}}" method="post">
+                        <form id="loc" action="{{ url_for("location")}}" method="post">
                         <input type="hidden" name="flocation" value="{{ item[4] }}">
                         <button class="location" type="submit">{{ item[4] }}</button>
                         </form>

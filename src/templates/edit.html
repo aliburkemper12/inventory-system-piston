@@ -4,19 +4,16 @@
 <link rel="stylesheet" type="text/css" href="static/style.css">
 <head>
 <html>
-    <body>
-        <div display="inline-block">
-            <h4 align="center">
-                <form action="{{ url_for("home")}}" method="post">
-                <input type="text" id="locate" name="fname" placeholder="Search by Name">
-                <button class="enter" type="submit">Enter</button></form>
-            </h4>
-            <h4 align="center">
-                <form action="{{url_for("home")}}">
-                <button type="submit" id="all">Show All</button>
-                </form>
-            </h4>
+    <div id="nav-bar">
+        <a id="nav" href="/home">Home</a>
+        <a id="nav" href="/add">Add</a> </div>
+        <div align="right">
+            <form action="{{ url_for("home")}}" method="post">
+            <input type="text" id="locate" name="fname" placeholder="Search by Name">
+            <button class="enter" type="submit">Enter</button>
+            </form>
         </div>
+    <body>
         <table style="width:100%">
             <tr>
                 <th width="20%" align="left">Name</th>

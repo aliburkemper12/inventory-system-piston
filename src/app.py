@@ -108,6 +108,28 @@ def edit():
         
     return render_template("edit.html", data=data)
 
+@app.route('/update_q', methods=["POST", "GET"])
+def update_q():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    name = request.form.get("name")
+    q = request.form.get("d_q")
+    
+    print(name)
+    print(q)
+    
+    if q != "":
+        command = 'UPDATE item SET quantity = ? WHERE name = ?;'
+        cursor.execute(command, (q, name))
+        conn.commit()
+        
+    data = cursor.execute('SELECT * FROM item').fetchall()
+    conn.close()
+    
+    return render_template("index.html", data=data)
+    
+    
+
 @app.route("/field_edit", methods=["POST"])
 def field_edit():
     conn = get_db_connection()
@@ -145,36 +167,7 @@ def field_edit():
         conn.commit()
     data = cursor.execute('SELECT * FROM item WHERE name = ?', (name,)).fetchall()
     conn.close()
-    return render_template("edit.html", data=data)
-
-# @app.route("/sort", methods=["GET", "POST"])
-# def sort():
-#     conn = get_db_connection()
-#     cursor = conn.cursor()
-#     row = request.form.get("name")
-#     print(row)
-    
-#     if row == '1':
-#         data = cursor.execute('SELECT * FROM item ORDER BY name').fetchall()
-#         conn.close()
-        
-#     if row == '2':
-#         data = cursor.execute('SELECT * FROM item ORDER BY quantity DESC').fetchall()
-#         conn.close()
-        
-#     if row == '3':
-#         data = cursor.execute('SELECT * FROM item ORDER BY description').fetchall()
-#         conn.close()
-        
-#     if row == '4':
-#         data = cursor.execute('SELECT * FROM item ORDER BY date DESC').fetchall()
-#         conn.close()
-        
-#     if row == '5':
-#         data = cursor.execute('SELECT * FROM item ORDER BY location DESC').fetchall()
-#         conn.close()
-        
-#     return render_template("index.html", data=data) 
+    return render_template("edit.html", data=data)    
 
 @app.route("/sort_asc", methods=["GET", "POST"])
 def sort_asc():
