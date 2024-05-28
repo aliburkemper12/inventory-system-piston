@@ -13,6 +13,19 @@ body {
 .login_container {
     margin-top: 15%;
 }
+#login {
+    border: none;
+    height: 30px;
+    width: 350px;
+    background-color: #3e4568;
+    color: #ebf7ff;
+    font-size: 15px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+#login::placeholder {
+    padding-left: 5px;
+    color: #899ca9;
+}
 .title {
     font-size: 40px;
     text-align: center;
@@ -22,19 +35,19 @@ body {
 #locate {
     border-radius: 2px;
     border: none;
-    height: 30px;
+    height: 17px;
     width: 250px;
-    background-color: #3e4568;
+    background-color: transparent;
     color: #ebf7ff;
-    padding-left: 3px;
     font-size: 15px;
-    margin-top: 10px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-#locate::placeholder {
-    color: #899ca9;
-    padding-left: 3px;
-    font-size: 15px;
+#search_container {
+    float: right;
+    margin: none;
+    padding: none;
+    background-color: #3a3671;
+    border-radius: 2px;
 }
 table {
     font-size: 20px;
@@ -43,7 +56,7 @@ button {
     background: #3e4568;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;    cursor: pointer;
     color: #ebf7ff;
-    border-radius: 7px;
+    border-radius: 2px;
     box-shadow: none;
     border: none;
     transition-duration: .5s;
@@ -63,8 +76,10 @@ button:hover {
 .location {
     background-color: transparent;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: #e7ffb3;
+    color: #e4ed64;
     font-size: 20px;
+    margin: 0;
+    padding: 0;
 }
 .edit {
     background-color: transparent;
@@ -83,15 +98,16 @@ button:hover {
     translate: 0px -3px;
 }
 .delete {
-    background-color: tomato;
-    color: black;
+    background-color: transparent;
+    margin: none;
+    padding: none;
 }
-.delete:hover {
-    background-color: #ebf7ff;
-    color: black;
+.delete img {
+    height: 20px;
+    width: auto;
 }
 #piston {
-    color: rgb(72, 120, 241);;
+    color: rgb(72, 120, 241);
 }
 #IT {
     color: tomato;
@@ -109,11 +125,13 @@ button:hover {
 }
 #nav {
     color: #ebf7ff;
-    margin-right: 2%;
+    margin: none;
+    padding: none;
+    margin-right: 3%;
     font-size: 18px;
-    margin-left: 2%;
+    text-decoration: none;
     transition-duration: .5s;
-    padding-bottom: 3px;
+    vertical-align: middle;
 }
 #nav:hover {
     color: tomato;
@@ -121,11 +139,19 @@ button:hover {
 }
 #nav-bar {
     background-color: #211e42;
-    vertical-align: top;
-    margin: 0;
-    padding-top: 10px;
+    height: 40px;
+}
+#container_nav {
+    padding-top: 8px;
     padding-bottom: 5px;
-    padding-left: 35px;
+    margin-left: 3.5%;
+    margin-right: 3.5%;
+}
+#line {
+    height: 3px;
+    width: auto;
+    background-color: #3a3671;
+    margin-bottom: 20px;
 }
 .d_q {
     color: #ebf7ff;
@@ -133,7 +159,7 @@ button:hover {
     border: none;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 20px;
-    width: 120px;
+    width: 95%;
 }
 .d_q::placeholder {
     color: #ebf7ff;
@@ -185,7 +211,7 @@ td {
     width: 400px;
     background-color: #3e4568;
     color: #ebf7ff;
-    margin: 5px;
+    margin: 4px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 20px;
     padding-left: 3px;
@@ -196,10 +222,10 @@ td {
     padding-left: 3px;
 }
 .submit {
-    margin-top: 10px;
+    margin-top: 5px;
+    padding: 5px 10px;
     background-color: #3e4568;
     font-size: 19px;
-    padding: 10px 10px;
 }
 #container {
     margin-top: 5%;
@@ -209,9 +235,16 @@ td {
     padding: 5px 10px;
 }
 .enter {
-    background-color: #3e4568;
-    font-size: 18px;
-    padding: 5px 10px;
+    background-color: transparent;
+}
+.enter img {
+    height: 15px;
+    width: auto;
+    margin: none;
+    padding: none;
+}
+.enter:hover {
+    background-color: transparent;
 }
 #addBody {
     margin-top: 5%;

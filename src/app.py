@@ -37,8 +37,16 @@ def home():
     if request.method == "POST":
         name = request.form.get("fname")
         data = cursor.execute('SELECT * FROM item WHERE name = ?', (name,)).fetchall()
+        print(data)
  
-        return render_template("edit.html", data=data)
+        if len(data) != 0:
+            print('non-empty')
+            return render_template("edit.html", data=data)
+        else:
+            print('like')
+            data = cursor.execute('SELECT * FROM item WHERE name LIKE ?', ('%' + name + '%',)).fetchall()
+            return render_template("index.html", data=data)
+            
         
     data = cursor.execute('SELECT * FROM item').fetchall()
     conn.close()
@@ -115,12 +123,12 @@ def update_q():
     name = request.form.get("name")
     q = request.form.get("d_q")
     
-    print(name)
-    print(q)
-    
     if q != "":
         command = 'UPDATE item SET quantity = ? WHERE name = ?;'
         cursor.execute(command, (q, name))
+        
+        command = 'UPDATE item SET date = ? WHERE name = ?;'
+        cursor.execute(command, (str(date.today()), name))
         conn.commit()
         
     data = cursor.execute('SELECT * FROM item').fetchall()

@@ -6,14 +6,18 @@
 <html>
     <body>
         <div id="nav-bar">
-            <a id="nav" href="/home">Home</a>
-            <a id="nav" href="/add">Add</a> </div>
-            <div align="right">
-                <form action="{{ url_for("home")}}" method="post">
-                <input type="text" id="locate" name="fname" placeholder="Search by Name">
-                <button class="enter" type="submit">Enter</button>
-                </form>
-            </div>
+            <div id="container_nav">
+                    <a id="nav" href="/home">Home</a>
+                    <a id="nav" href="/add">Add</a>
+                <div id="search_container" float="right">
+                    <form action="{{ url_for("home")}}" method="post">
+                    <input type="text" autocomplete="off" id="locate" name="fname">
+                    <button class="enter" type="submit"><img src="static/search.png" alt=""></button>
+                    </form>
+                </div>
+            </div> 
+        </div>
+        <div id="line"></div>
         <div class="title">
             <a id="piston">Piston<a> <a id="IT">IT<a> Inventory
         </div>
@@ -21,7 +25,7 @@
             <table style="width:100%">
                 <tr>
                     <th width="3%" align="left"></th>
-                    <th width="24%" align="left">Name</th>
+                    <th width="26%" align="left">Name</th>
                     <th width="10%" align="left">Quantity</th>
                     <th width="24%" align="left">Description</th>
                     <th width="15%" align="left">Date Updated</th>
@@ -32,7 +36,7 @@
                     <form action="{{ url_for("edit")}}" method="post">
                     <td width="2%" align="right"><button class="edit" id="count" type="submit"><img src="static/edit_icon.png" alt=""></button></td>
                     <form id="name" method="post">
-                    <td width="22%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td></form></form>
+                    <td width="25%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td></form></form>
                     <td width="10%" display="inline-block" id="quantity">{{ item[1] }}</td>
                     <td width="25%">{{ item[2] }}</td>
                     <td width="15%">{{ item[3] }}</td>
@@ -44,7 +48,7 @@
                     </td></form>
                     <form action="{{ url_for("delete")}}" method="post">
                     <input type="hidden" name="name" value="{{ item[0] }}">
-                    <td width="auto" align="left"><button class="delete" type="submit">Delete</button></td></form>
+                    <td width="auto" align="left"><button class="delete" type="submit"><img src="static/trash.png" alt=""></button></td></form>
                 </tr>
                 {%endfor%}
             </table>
