@@ -2,6 +2,7 @@
 <head>
 <title>IT Inventory</title>
 <link rel="stylesheet" type="text/css" href="static/style.css">
+<script src="static/script.js"></script>
 </head>
 <html>
     <body>
@@ -22,7 +23,7 @@
             <a id="piston">Piston<a> <a id="IT">IT<a> Inventory
         </div>
         <div id="table_container">
-            <table style="width:100%">
+            <table id="myTable" style="width:100%">
                 <tr>
                     <th width="3%" align="left"></th>
                     <th width="26%" align="left">Name</th>
@@ -30,6 +31,7 @@
                     <th width="24%" align="left">Description</th>
                     <th width="15%" align="left">Date Updated</th>
                     <th width="15%" align="left">Location</th>
+                    <th style="display:none;">HiddenData</th>
                 </tr>
                 {%for item in data%}
                 <tr class="data_row">
@@ -37,7 +39,11 @@
                     <td width="2%" align="right"><button class="edit" id="count" type="submit"><img src="static/edit_icon.png" alt=""></button></td>
                     <form id="name" method="post">
                     <td width="25%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td></form></form>
-                    <td width="10%" display="inline-block" id="quantity">{{ item[1] }}</td>
+                    <td width="10%" display="inline-block" id="quantity" data-quantity="{{ item[1] }}">
+                        <form action="/update_q_sub" method="post">
+                        <input type="hidden" name="name" value="{{ item[0] }}">
+                        <input type="hidden" name="flocation" value="{{ item[4] }}">
+                        <input type="text" autocomplete="off" class="d_q" name="d_q" placeholder="{{ item[1] }}"></td></form>
                     <td width="25%">{{ item[2] }}</td>
                     <td width="15%">{{ item[3] }}</td>
                     <td width="16%">
@@ -45,7 +51,8 @@
                         <input type="hidden" name="flocation" value="{{ item[4] }}">
                         <button class="location" type="submit">{{ item[4] }}</button>
                         </form>
-                    </td></form>
+                    </td>
+                    <td style="display:none;" data-hidden="{{ item[5] }}"></td></form>
                     <form action="{{ url_for("delete")}}" method="post">
                     <input type="hidden" name="name" value="{{ item[0] }}">
                     <td width="auto" align="left"><button class="delete" type="submit"><img src="static/trash.png" alt=""></button></td></form>

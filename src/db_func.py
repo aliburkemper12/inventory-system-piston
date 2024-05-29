@@ -29,6 +29,7 @@ def create_db():
         password TEXT NOT NULL
         );
         '''
+    
     cursor.execute(create_query)
     cursor.execute(create_login)
     print("Table created!")

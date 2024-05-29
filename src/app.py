@@ -34,16 +34,15 @@ def login():
 def home():
     conn = get_db_connection()
     cursor = conn.cursor()
+    
     if request.method == "POST":
         name = request.form.get("fname")
         data = cursor.execute('SELECT * FROM item WHERE name = ?', (name,)).fetchall()
         print(data)
  
         if len(data) != 0:
-            print('non-empty')
             return render_template("edit.html", data=data)
         else:
-            print('like')
             data = cursor.execute('SELECT * FROM item WHERE name LIKE ?', ('%' + name + '%',)).fetchall()
             return render_template("index.html", data=data)
             
@@ -85,18 +84,26 @@ def delete():
 @app.route('/add', methods=["GET", "POST"])
 def add():
     if request.method == "POST":
-        print('in add')
         conn = get_db_connection()
         cursor = conn.cursor()
         new_name = request.form.get("new_name")
         new_quant = request.form.get("new_quant")
         new_desc = request.form.get("new_desc")
         new_location = request.form.get("new_location")
+        new_alert = request.form.get("new_alert")
+        print(new_alert)
         
         if new_name and new_quant and new_desc and new_location:
-            command = 'INSERT INTO item VALUES (?, ?, ?, ?, ?)'
-            cursor.execute(command, (new_name, new_quant, new_desc, str(date.today()), new_location))
-            conn.commit()
+            if new_alert:
+                print('new alert')
+                command = 'INSERT INTO item VALUES (?, ?, ?, ?, ?, ?)'
+                cursor.execute(command, (new_name, new_quant, new_desc, str(date.today()), new_location, new_alert))
+                conn.commit()
+            else:
+                command = 'INSERT INTO item VALUES (?, ?, ?, ?, ?, ?)'
+                cursor.execute(command, (new_name, new_quant, new_desc, str(date.today()), new_location, 'None'))
+                conn.commit()
+                
             data = cursor.execute('SELECT * FROM item').fetchall()
             conn.close()
             
@@ -135,8 +142,27 @@ def update_q():
     conn.close()
     
     return render_template("index.html", data=data)
+
+@app.route('/update_q_sub', methods=["POST", "GET"])
+def update_q_sub():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    name = request.form.get("name")
+    q = request.form.get("d_q")
+    location = request.form.get("flocation")
     
+    if q != "":
+        command = 'UPDATE item SET quantity = ? WHERE name = ?;'
+        cursor.execute(command, (q, name))
+        
+        command = 'UPDATE item SET date = ? WHERE name = ?;'
+        cursor.execute(command, (str(date.today()), name))
+        conn.commit()
+
+    data = cursor.execute('SELECT * FROM item WHERE location = ?', (location,)).fetchall()
+    conn.close()
     
+    return render_template("sub.html", data=data)
 
 @app.route("/field_edit", methods=["POST"])
 def field_edit():
@@ -147,6 +173,7 @@ def field_edit():
     new_quant = request.form.get("new_quant")
     new_desc = request.form.get("new_desc")
     new_location = request.form.get("new_location")
+    new_alert = request.form.get("new_alert")
     
     if new_name != "":
         command = 'UPDATE item SET name = ? WHERE name = ?;'
@@ -168,8 +195,13 @@ def field_edit():
         command = 'UPDATE item SET location = ? WHERE name = ?;'
         cursor.execute(command, (new_location, name))
         conn.commit()
+        
+    if new_alert != "":
+        command = 'UPDATE item SET alert = ? WHERE name = ?;'
+        cursor.execute(command, (new_alert, name))
+        conn.commit()
     
-    if new_name or new_quant or new_desc or new_location:
+    if new_name or new_quant or new_desc or new_location or new_alert:
         command = 'UPDATE item SET date = ? WHERE name = ?;'
         cursor.execute(command, (str(date.today()), name))
         conn.commit()
