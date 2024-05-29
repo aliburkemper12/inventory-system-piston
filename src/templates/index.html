@@ -2,7 +2,7 @@
 <head>
 <title>IT Inventory</title>
 <link rel="stylesheet" type="text/css" href="static/style.css">
-<script src="static/script.js"></script>
+<script src="static/home.js"></script>
 </head>
 <html>
     <body>
@@ -19,14 +19,15 @@
             </div> 
         </div>
         <div id="line"></div>
+        <p align="right" id="alerts"><a id="replace"></a><a id="alert-a"></a></p>
         <div class="title">
-            <a id="piston">Piston<a> <a id="IT">IT<a> Inventory
+            <a id="piston">Piston</a> <a id="IT">IT</a> Inventory
         </div>
         <div id="table_container">
             <table id="myTable" style="width:100%">
                 <tr>
                     <th width="3%" align="left"></th>
-                    <th width="26%" align="left">Name<div>
+                    <th width="22%" align="left">Name<div>
                         <div><form action="{{ url_for("sort_desc")}}" method="post">
                         <input type="hidden" name="name" value="1">
                         <button class="arrow" type="submit"><img src="static/up.png" alt=""></button></form></div>
@@ -42,7 +43,7 @@
                         <input type="hidden" name="name" value="2">
                         <button class="arrow" type="submit"><img src="static/down.png" alt=""></button></form></div></div>
                     </th>
-                    <th width="24%" align="left">Description<div>
+                    <th width="28%" align="left">Description<div>
                         <div><form action="{{ url_for("sort_desc")}}" method="post">
                         <input type="hidden" name="name" value="3">
                         <button class="arrow" type="submit"><img src="static/up.png" alt=""></button></form></div>
@@ -73,12 +74,12 @@
                     <form action="{{ url_for("edit")}}" method="post">
                     <td width="2%" align="right"><button class="edit" id="count" type="submit"><img src="static/edit_icon.png" alt=""></button></td>
                     <form id="name" method="post">
-                    <td width="25%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td></form></form>
+                    <td width="21%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td></form></form>
                     <td width="10%" display="inline-block" id="quantity" data-quantity="{{ item[1] }}">
                         <form action="/update_q" method="post">
                         <input type="hidden" name="name" value="{{ item[0] }}">
                         <input type="text" autocomplete="off" class="d_q" name="d_q" placeholder="{{ item[1] }}"></td></form>
-                    <td width="25%">{{ item[2] }}</td>
+                    <td width="29%">{{ item[2] }}</td>
                     <td width="15%">{{ item[3] }}</td>
                     <td width="18%">
                         <form action="{{ url_for("location")}}" method="post">

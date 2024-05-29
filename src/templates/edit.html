@@ -25,23 +25,23 @@
         <table id="myTable" style="width:100%">
             <tr>
                 <th style="display:none;"></th>
-                <th width="15%" align="left">Name</th>
-                <th width="15%" align="left">Quantity</th>
-                <th width="15%" align="left">Description</th>
-                <th width="15%" align="left">Date Updated</th>
-                <th width="15%" align="left">Location</th>
-                <th width="15%" align="left">Alert #</th>
+                <th width="16%" align="left">Name</th>
+                <th width="16%" align="left">Quantity</th>
+                <th width="16%" align="left">Description</th>
+                <th width="16%" align="left">Date Updated</th>
+                <th width="16%" align="left">Location</th>
+                <th width="16%" align="left">Alert #</th>
             </tr>
             {%for item in data%}
             <tr>
                 <form id="new_name" action="{{ url_for("field_edit")}}" method="post">
                 <td style="display:none;"></td>
-                <td width="15%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td>
-                <td width="15%" data-quantity="{{ item[1] }}">{{ item[1] }}</td>
-                <td width="15%">{{ item[2] }}</td>
-                <td width="15%">{{ item[3] }}</td>
-                <td width="15%">{{ item[4] }}</td>
-                <td width="15%" data-hidden="{{ item[5] }}">{{ item[5] }}</td></form>
+                <td width="16%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td>
+                <td width="16%" data-quantity="{{ item[1] }}">{{ item[1] }}</td>
+                <td width="16%">{{ item[2] }}</td>
+                <td width="16%">{{ item[3] }}</td>
+                <td width="16%">{{ item[4] }}</td>
+                <td width="16%" data-hidden="{{ item[5] }}">{{ item[5] }}</td></form>
                 <form action="{{ url_for("delete")}}" method="post">
                 <input type="hidden" name="name" value="{{ item[0] }}">
                 <td width="auto" align="left"><button class="delete" type="submit"><img src="static/trash.png" alt=""></button></td></form>

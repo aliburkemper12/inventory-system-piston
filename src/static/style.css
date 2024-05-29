@@ -32,6 +32,16 @@ body {
     margin-bottom: 20px;
     text-shadow: 2px 2px 1px #000000;
 }
+#alerts {
+    margin-right: 7%;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+    color: #ebf7ff;
+    margin-bottom: 0;
+}
+#replace {
+    color: tomato;
+}
 #locate {
     border-radius: 2px;
     border: none;
@@ -163,6 +173,12 @@ button:hover {
 }
 .d_q::placeholder {
     color: #ebf7ff;
+}
+.d_q:hover {
+    box-shadow: 1px 1px 1px 2px #ebf7ff;
+}
+#alert_msg {
+    color: rgb(17, 173, 17);
 }
 tr th {
     color: rgb(72, 120, 241);

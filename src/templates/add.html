@@ -17,8 +17,21 @@
             </div> 
         </div>
         <div id="line"></div>
+        {% block content %}
+        <div class="container">
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <p id="alert_msg">{{ message }}</p>
+            </div>
+            {% endfor %}
+
+            {% block page_content %}{% endblock %}
+        </div>
+        {% endblock %}
         <div id="container">
             <h1 align="center">Add New Item</h1>
+            <h1 class="error" align="center">{{ error }}</h1>
             <h4 align="center">
                 <form action="/add" method="post">
                     <h3>Fill out all forms</h3>
@@ -35,9 +48,9 @@
                         <input id="new" type="text" autocomplete="off" id="change" name="new_location" placeholder="New location">
                     </div>
                     <p>OPTIONAL</p>
-                    <p>If item quantity falls beneath 'alert quantity', item row will display red</p>
+                    <p>If item quantity falls below 'alert quantity', item row will display red</p>
                     <div>
-                        <input id="new" autocomplete="off" type="text" id="change" name="new_alert" placeholder="New Alert Quantity">
+                        <input id="new" autocomplete="off" type="text" id="change" name="new_alert" placeholder="New alert quantity">
                     </div>
                 <td width="20%"><button type="submit" class="submit">Submit</button></td>
             </h4>

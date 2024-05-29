@@ -2,7 +2,7 @@ import sqlite3
 import db_func
 from waitress import serve
 from datetime import date
-from flask import Flask, render_template, request, redirect, jsonify
+from flask import Flask, render_template, request, redirect, jsonify, flash
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'roll_tide'
@@ -107,10 +107,14 @@ def add():
             data = cursor.execute('SELECT * FROM item').fetchall()
             conn.close()
             
-            return render_template("index.html", data=data)
+            flash('Database updated')
+            return render_template("add.html", error="")
+        
+        else:
+            return render_template("add.html", error="Invalid. Please try again.")
     
     
-    return render_template("add.html")
+    return render_template("add.html", error="")
 
 @app.route('/edit', methods=["GET", "POST"])
 def edit():
@@ -292,7 +296,8 @@ def sort_asc_sub():
         data = cursor.execute('SELECT * FROM item ORDER BY date ASC WHERE location = ?', (location,)).fetchall()
         conn.close()
         
-    return render_template("sub.html", data=data) 
+    # return render_template("sub.html", data=data) 
+    return jsonify(data=data)
 
 @app.route("/sort_desc_sub", methods=["GET", "POST"])
 def sort_desc_sub():
