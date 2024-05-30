@@ -10,6 +10,7 @@
             <div id="container_nav">
                     <a id="nav" href="/home">Home</a>
                     <a id="nav" href="/add">Add</a>
+                    <!-- <a id="nav" href="/location">Location</a> -->
                 <div id="search_container" float="right">
                     <form action="{{ url_for("home")}}" method="post">
                     <input type="text" autocomplete="off" id="locate" name="fname">
@@ -40,7 +41,12 @@
                 <td width="16%" data-quantity="{{ item[1] }}">{{ item[1] }}</td>
                 <td width="16%">{{ item[2] }}</td>
                 <td width="16%">{{ item[3] }}</td>
-                <td width="16%">{{ item[4] }}</td>
+                <td width="16%"></form>
+                    <form action="{{ url_for("location")}}" method="post">
+                    <input type="hidden" name="flocation" value="{{ item[4] }}">
+                    <button class="location" type="submit">{{ item[4] }}</button>
+                    </form>
+                </td>
                 <td width="16%" data-hidden="{{ item[5] }}">{{ item[5] }}</td></form>
                 <form action="{{ url_for("delete")}}" method="post">
                 <input type="hidden" name="name" value="{{ item[0] }}">

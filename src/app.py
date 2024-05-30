@@ -1,8 +1,7 @@
 import sqlite3
 import db_func
-from waitress import serve
 from datetime import date
-from flask import Flask, render_template, request, redirect, jsonify, flash
+from flask import Flask, render_template, request, jsonify, flash
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'roll_tide'
@@ -57,6 +56,7 @@ def location():
     conn = get_db_connection()
     cursor = conn.cursor()
     location = request.form.get("flocation")
+    print(location)
         
     data = cursor.execute('SELECT * FROM item WHERE location = ?', (location,)).fetchall()
     conn.close()
