@@ -10,5 +10,9 @@
         <div class="input"><input type="text" id="login" name="username" placeholder="Enter username"></div>
         <div class="input"><input type="password" id="login" name="password" placeholder="Enter password"></div>
         <button class="submit" type="submit">Enter</button></form>
+        <div>
+            <form action="{{ url_for("new_user")}}" method="post">
+            <button class="submit" type="submit">New User</button>
+        </div>
     <body>
 </html>

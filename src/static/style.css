@@ -42,6 +42,13 @@ body {
 #replace {
     color: tomato;
 }
+.select {
+    position: relative;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.select-selected {
+    background-color: #3a3671;
+}
 #locate {
     border-radius: 2px;
     border: none;
@@ -135,6 +142,16 @@ button:hover {
 }
 #nav {
     color: #ebf7ff;
+    margin: none;
+    padding: none;
+    margin-right: 3%;
+    font-size: 18px;
+    text-decoration: none;
+    transition-duration: .5s;
+    vertical-align: middle;
+}
+#nav-logout {
+    color: tomato;
     margin: none;
     padding: none;
     margin-right: 3%;

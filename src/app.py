@@ -1,7 +1,7 @@
 import sqlite3
 import db_func
 from datetime import date
-from flask import Flask, render_template, request, jsonify, flash
+from flask import Flask, render_template, request, jsonify, flash, redirect
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'roll_tide'
@@ -18,14 +18,30 @@ def login():
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
-        if username == 'piston-it' and password =='1234':
-            conn = get_db_connection()
-            cursor = conn.cursor()
-            data = cursor.execute('SELECT * FROM item').fetchall()
-            conn.close()
-            
-            return render_template("index.html", data=data)
-        return render_template("login.html", error='Invalid Username or Password')
+        
+        # see if username exists
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        command = 'SELECT * FROM login WHERE username = ?'
+        data = cursor.execute(command, (username,)).fetchall()
+        
+        # user exists
+        if len(data) != 0:
+            # see if password matches
+            command = 'SELECT password FROM login WHERE username = ?'
+            data = cursor.execute(command, (username,)).fetchall()
+            for row in data:
+                data = row['password']
+            if data == password:
+                data = cursor.execute('SELECT * FROM item').fetchall()
+                conn.close()
+                
+                return render_template("index.html", data=data)
+            else:
+                return render_template("login.html", error='Invalid Password')
+        else:
+            return render_template("login.html", error='Invalid Username')
+                
     return render_template("login.html", error="")
         
 
@@ -43,14 +59,32 @@ def home():
             return render_template("edit.html", data=data)
         else:
             data = cursor.execute('SELECT * FROM item WHERE name LIKE ?', ('%' + name + '%',)).fetchall()
-            return render_template("index.html", data=data)
-            
+    
+            return render_template("index.html", data=data)      
         
     data = cursor.execute('SELECT * FROM item').fetchall()
     conn.close()
         
     return render_template("index.html", data=data)
 
+@app.route('/full', methods=["GET", "POST"])
+def full():
+    return redirect("/home")
+
+@app.route('/partial', methods=["GET", "POST"])
+def partial():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    data = cursor.execute('SELECT name, quantity FROM item').fetchall()
+    
+    return render_template("small.html", data=data)
+
+@app.route('/checkout', methods=["GET", "POST"])
+def checkout():
+    
+    return render_template("index.html")
+        
 @app.route('/location', methods=["GET", "POST"])
 def location():
     conn = get_db_connection()
@@ -63,6 +97,46 @@ def location():
 
         
     return render_template("sub.html", data=data)
+
+@app.route('/new_user', methods=["GET", "POST"])
+def new_user():
+    
+    return render_template("new.html")
+    
+@app.route('/submit', methods=["GET", "POST"])
+def submit():
+    name = request.form.get("new_name")
+    pass1 = request.form.get("new_pass")
+    pass2 = request.form.get("new_pass_two")
+    
+    #check if username already exists
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    command = 'SELECT * FROM login WHERE username = ?'
+    data = cursor.execute(command, (name,)).fetchall()
+    
+    if len(data) == 0:
+        # doesn't exist
+        
+        # check to see if passwords match
+        if pass1 == pass2:
+            command = 'INSERT INTO login VALUES (?, ?)'
+            cursor.execute(command, (name, pass1))
+            conn.commit()
+            return render_template("login.html", error="Created New User Succesfully")
+            
+        # passwords don't match
+        else:
+            return render_template("new.html", error="Passwords don't match. Try again")
+            
+    # username already exists
+    elif len(data) != 0:
+        return render_template("new.html", error="Username already exists")
+    
+@app.route('/user', methods=["GET", "POST"])
+def user():
+    
+    return render_template("user.html")
 
 @app.route('/delete', methods=["GET", "POST"])
 def delete():
@@ -146,6 +220,26 @@ def update_q():
     conn.close()
     
     return render_template("index.html", data=data)
+
+@app.route('/update_q_p', methods=["POST", "GET"])
+def update_q_p():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    name = request.form.get("name")
+    q = request.form.get("d_q")
+    
+    if q != "":
+        command = 'UPDATE item SET quantity = ? WHERE name = ?;'
+        cursor.execute(command, (q, name))
+        
+        command = 'UPDATE item SET date = ? WHERE name = ?;'
+        cursor.execute(command, (str(date.today()), name))
+        conn.commit()
+        
+    data = cursor.execute('SELECT name, quantity FROM item').fetchall()
+    conn.close()
+    
+    return render_template("small.html", data=data)
 
 @app.route('/update_q_sub', methods=["POST", "GET"])
 def update_q_sub():

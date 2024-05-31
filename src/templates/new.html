@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<head>
+<title>IT Inventory</title>
+<link rel="stylesheet" type="text/css" href="static/style.css">
+<html>
+    <h4 align="center">
+        <div id="container">
+            <h3 class="error">{{ error }}</h3>
+            <form action="{{ url_for("submit")}}" method="post">
+            <input id="new" autocomplete="off" type="text" id="change" name="new_name" placeholder="New username">
+        </div>
+        <div>
+            <input id="new" autocomplete="off" type="password" id="change" name="new_pass" placeholder="New password">
+        </div>
+        <div>
+            <input id="new" autocomplete="off" type="password" id="change" name="new_pass_two" placeholder="Enter password again">
+        </div>
+        <button type="submit" class="submit">Create</button>
+        </form>
+        <form action="{{ url_for("login")}}" method="post">
+        <button type="submit" class="submit">Back</button></form>
+    </h4>
+</html>
