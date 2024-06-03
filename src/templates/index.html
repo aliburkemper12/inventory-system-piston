@@ -8,10 +8,11 @@
     <body>
         <div id="nav-bar">
             <div id="container_nav">
+                    <a id="nav-logout" href="/">Logout</a>
+                    <a id="nav" href="/user">User</a>
+                    <a id="nav"></a>
                     <a id="nav" href="/home">Inventory</a>
                     <a id="nav" href="/add">Add Item</a>
-                    <a id="nav" href="/user">User</a>
-                    <a id="nav-logout" href="/">Logout</a>
                 <div id="search_container" float="right">
                     <form action="{{ url_for("home")}}" method="post">
                     <input type="text" autocomplete="off" id="locate" name="fname">
@@ -22,13 +23,16 @@
         </div>
         <div id="line"></div>
         <p align="right" id="alerts"><a id="replace"></a><a id="alert-a"></a></p>
+        <div class="select">
+            <button class="dropbtn"><img src="static/down.png" alt=""></button>
+            <div id="dropdown">
+                <a id="tab" href="/full">Full</a>
+                <a id="tab" href="/partial">Partial</a>
+                <a id="tab" href="/checkout">Checkout</a>
+            </div>
+        </div>
         <div class="title">
             <a id="piston">Piston</a> <a id="IT">IT</a> Inventory
-        </div>
-        <div class="select" display="flex">
-            <a id="nav" href="/full">Full</a>
-            <a id="nav" href="/partial">Partial</a>
-            <a id="nav" href="/checkout">Checkout</a>
         </div>
         </form>
         <div id="table_container">

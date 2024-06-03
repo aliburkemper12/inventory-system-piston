@@ -45,9 +45,49 @@ body {
 .select {
     position: relative;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 0;
+    margin-top: -2%;
+    width: fit-content;
+    display: block;
 }
-.select-selected {
+.dropbtn {
+    margin: none;
+    background-color: #211e42;
+    color: #ebf7ff;
+    position: relative;
+    border: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+    width: 40px;
+}
+.dropbtn img {
+    height: 20px;
+    width: auto;
+}
+#dropdown {
+    display: none;
+    position: absolute;
+    background-color: #211e42;
+    color: #ebf7ff;
+}
+#tab {
+    color: #ebf7ff;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+    background-color: #211e42;
+    transition-duration: .5s;
+    margin: none;
+    padding: 5px;
+    text-align: center;
+    width: 120px;
+    text-decoration: none;
+}
+#tab:hover {
     background-color: #3a3671;
+    color: tomato;
+}
+.select:hover #dropdown{
+    display: flex;
 }
 #locate {
     border-radius: 2px;

@@ -76,7 +76,7 @@ def partial():
     conn = get_db_connection()
     cursor = conn.cursor()
     
-    data = cursor.execute('SELECT name, quantity FROM item').fetchall()
+    data = cursor.execute('SELECT name, quantity, alert FROM item').fetchall()
     
     return render_template("small.html", data=data)
 

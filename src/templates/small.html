@@ -2,7 +2,7 @@
 <head>
 <title>IT Inventory</title>
 <link rel="stylesheet" type="text/css" href="static/style.css">
-<script src="static/home.js"></script>
+<script src="static/script_small.js"></script>
 </head>
 <html>
     <body>
@@ -22,13 +22,16 @@
         </div>
         <div id="line"></div>
         <p align="right" id="alerts"><a id="replace"></a><a id="alert-a"></a></p>
+        <div class="select">
+            <button class="dropbtn">></button>
+            <div id="dropdown">
+                <a id="tab" href="/full">Full</a>
+                <a id="tab" href="/partial">Partial</a>
+                <a id="tab" href="/checkout">Checkout</a>
+            </div>
+        </div>
         <div class="title">
             <a id="piston">Piston</a> <a id="IT">IT</a> Inventory
-        </div>
-        <div class="select" display="flex">
-            <a id="nav" href="/full">Full</a>
-            <a id="nav" href="/partial">Partial</a>
-            <a id="nav" href="/checkout">Checkout</a>
         </div>
         <div id="table_container">
             <table id="myTable" style="width:50%">
@@ -61,6 +64,7 @@
                         <form action="/update_q_p" method="post">
                         <input type="hidden" name="name" value="{{ item[0] }}">
                         <input type="text" autocomplete="off" class="d_q" name="d_q" placeholder="{{ item[1] }}"></td></form>
+                    <td data-hidden="{{ item[5] }}" style="display:none;"></td></form>
                     <form action="{{ url_for("delete")}}" method="post">
                     <input type="hidden" name="name" value="{{ item[0] }}">
                     <td width="auto" align="left"><button class="delete" type="submit"><img src="static/trash.png" alt=""></button></td></form>
