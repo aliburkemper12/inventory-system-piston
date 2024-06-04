@@ -5,8 +5,10 @@
 <html>
     <h4 align="center">
         <div id="container">
-            <h3 class="error">{{ error }}</h3>
-            <form action="{{ url_for("submit")}}" method="post">
+            {% for mesg in get_flashed_messages() %}
+            <h1 id="flash">{{ mesg }}</h1>
+            {% endfor %}
+            <form action="{{ url_for("new_user")}}" method="post">
             <input id="new" autocomplete="off" type="text" id="change" name="new_name" placeholder="New username">
         </div>
         <div>

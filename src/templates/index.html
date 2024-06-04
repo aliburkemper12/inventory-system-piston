@@ -10,6 +10,9 @@
             <div id="container_nav">
                     <a id="nav-logout" href="/">Logout</a>
                     <a id="nav" href="/user">User</a>
+                    {% if current_user.is_authenticated and 'admin' in current_user.roles|map(attribute='name') %}
+                    <a id="nav" class="admin" href='/admin'>Admin</a>
+                    {% endif %}
                     <a id="nav"></a>
                     <a id="nav" href="/home">Inventory</a>
                     <a id="nav" href="/add">Add Item</a>

@@ -7,6 +7,11 @@
     <body>
         <div id="nav-bar">
             <div id="container_nav">
+                    <a id="nav-logout" href="/">Logout</a>
+                    {% if current_user.is_authenticated and 'admin' in current_user.roles|map(attribute='name') %}
+                    <a id="nav" class="admin" href='/admin'>Admin</a>
+                    {% endif %}
+                    <a id="nav"></a>
                     <a id="nav" href="/home">Inventory</a>
                     <a id="nav" href="/add">Add Item</a>
                 <div id="search_container" float="right">
@@ -19,11 +24,24 @@
         </div>
         <div id="line"></div>
         <!--Put username, change password, change username, logout, delete-->
+        {% for mesg in get_flashed_messages() %}
+            <h1 id="flash">{{ mesg }}</h1>
+            {% endfor %}
         <div id="container">
             <div>
-                <p>Username: </p>
-                <p>Change Username: </p>
-                <p>Change Password: </p>
+                <p>Username: {{ current_user.username }}</p>
+                <div>
+                    <p>Change Username: </p>
+                    <form action="{{ url_for("user")}}" method="post">
+                    <input id="new" autocomplete="off" type="text" id="change" name="new_name" placeholder="New username">
+                    <button>Update</button></form>
+                </div>
+                <div>
+                    <p>Change Password: </p>
+                    <form action="{{ url_for("user")}}" method="post">
+                    <input id="new" autocomplete="off" type="password" id="change" name="new_pass" placeholder="New password">
+                    <button>Update</button></form>
+                </div>
             </div>
         </div>
     </body>

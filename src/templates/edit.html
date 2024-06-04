@@ -8,9 +8,14 @@
     <body>
         <div id="nav-bar">
             <div id="container_nav">
+                    <a id="nav-logout" href="/">Logout</a>
+                    <a id="nav-user" href="/user">{{ current_user.username }}</a>
+                    {% if current_user.is_authenticated and 'admin' in current_user.roles|map(attribute='name') %}
+                    <a id="nav" class="admin" href='/admin'>Admin</a>
+                    {% endif %}
+                    <a id="nav"></a>
                     <a id="nav" href="/home">Inventory</a>
                     <a id="nav" href="/add">Add Item</a>
-                    <!-- <a id="nav" href="/location">Location</a> -->
                 <div id="search_container" float="right">
                     <form action="{{ url_for("home")}}" method="post">
                     <input type="text" autocomplete="off" id="locate" name="fname">

@@ -5,14 +5,12 @@
     </head>
     <body align="center" class="login_container">
         <h1 class="title">Login</h2>
-        <h3 class="error">{{ error }}</h3>
+            {% for mesg in get_flashed_messages() %}
+            <h1 id="flash">{{ mesg }}</h1>
+            {% endfor %}
         <form action="{{ url_for("login")}}" method="post">
         <div class="input"><input type="text" id="login" name="username" placeholder="Enter username"></div>
         <div class="input"><input type="password" id="login" name="password" placeholder="Enter password"></div>
         <button class="submit" type="submit">Enter</button></form>
-        <div>
-            <form action="{{ url_for("new_user")}}" method="post">
-            <button class="submit" type="submit">New User</button>
-        </div>
     <body>
 </html>

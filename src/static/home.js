@@ -24,4 +24,6 @@ function getAlert() {
     }
     document.getElementById('replace').innerText = num;
     document.getElementById('alert-a').innerText = " Active Alerts";
+
 }
+

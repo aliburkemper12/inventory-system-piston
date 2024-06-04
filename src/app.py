@@ -1,10 +1,60 @@
 import sqlite3
 import db_func
 from datetime import date
-from flask import Flask, render_template, request, jsonify, flash, redirect
+from flask import Flask, render_template, request, jsonify, flash, redirect, url_for, session
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_migrate import Migrate
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'roll_tide'
+app.config['SECRET_KEY'] = '\xf9\xf6\xdc\x82P\x7f\xc4X\x07\xb8\xc0\x01'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///inventory.db'
+login_manager = LoginManager()
+login_manager.init_app(app)
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True, nullable=False)
+    password = db.Column(db.String, nullable=False)
+    roles = db.relationship('Role', secondary='user_roles',
+            backref=db.backref('users', lazy='dynamic'))
+    
+class Role(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(50), unique=True)
+    
+class UserRoles(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.id', ondelete='CASCADE'))
+    role_id = db.Column(db.Integer(), db.ForeignKey('role.id', ondelete='CASCADE'))
+        
+# db.init_app(app)
+with app.app_context():
+    db.create_all()
+    
+@login_manager.user_loader
+def load_user(user_id):  
+    return User.query.get(int(user_id))
+
+def authenticate_user(username, password):
+    # see if username and password are correct
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        return None
+    elif check_password_hash(user.password, password):
+        return user
+    else:
+        return None
+    
+def admin_required(func):
+    def decorated_view(*args, **kwargs):
+        if not current_user.is_authenticated or 'admin' not in [role.name for role in current_user.roles]:
+            return "You don't have permission to access this page."
+        return func(*args, **kwargs)
+    return decorated_view
 
 def get_db_connection():
     conn = sqlite3.connect('inventory.db')
@@ -19,33 +69,54 @@ def login():
         username = request.form.get("username")
         password = request.form.get("password")
         
-        # see if username exists
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        command = 'SELECT * FROM login WHERE username = ?'
-        data = cursor.execute(command, (username,)).fetchall()
-        
-        # user exists
-        if len(data) != 0:
-            # see if password matches
-            command = 'SELECT password FROM login WHERE username = ?'
-            data = cursor.execute(command, (username,)).fetchall()
-            for row in data:
-                data = row['password']
-            if data == password:
-                data = cursor.execute('SELECT * FROM item').fetchall()
-                conn.close()
-                
-                return render_template("index.html", data=data)
-            else:
-                return render_template("login.html", error='Invalid Password')
+        user_id = authenticate_user(username, password)
+        if user_id:
+            login_user(user_id)
+            return redirect(url_for("home"))
         else:
-            return render_template("login.html", error='Invalid Username')
+            flash('Invalid username or password')
                 
     return render_template("login.html", error="")
+
+@app.route('/new_user', methods=["GET", "POST"])
+def new_user():
+    if request.method == "POST":
+        username = request.form.get("new_name")
+        password = request.form.get("new_pass")
+        password1 = request.form.get("new_pass_two")
         
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            flash('Username already exists.')
+        elif password1 != password:
+            flash("Passwords don't match.")
+        else:
+            hashed_pass = generate_password_hash(password)
+            print(hashed_pass)
+            new_user = User(username=username, password=hashed_pass)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('Registration successful. You can now log in.')
+            return redirect(url_for('login'))
+        
+    return render_template("new.html")
+
+@app.route('/admin')
+@login_required
+@admin_required
+def admin():
+    data = User.query.all()
+    
+    return render_template("admin.html", data=data)
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for(''))
 
 @app.route('/home', methods=["GET", "POST"])
+@login_required
 def home():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -68,10 +139,12 @@ def home():
     return render_template("index.html", data=data)
 
 @app.route('/full', methods=["GET", "POST"])
+@login_required
 def full():
     return redirect("/home")
 
 @app.route('/partial', methods=["GET", "POST"])
+@login_required
 def partial():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -81,11 +154,13 @@ def partial():
     return render_template("small.html", data=data)
 
 @app.route('/checkout', methods=["GET", "POST"])
+@login_required
 def checkout():
     
     return render_template("index.html")
         
 @app.route('/location', methods=["GET", "POST"])
+@login_required
 def location():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -97,48 +172,33 @@ def location():
 
         
     return render_template("sub.html", data=data)
-
-@app.route('/new_user', methods=["GET", "POST"])
-def new_user():
-    
-    return render_template("new.html")
-    
-@app.route('/submit', methods=["GET", "POST"])
-def submit():
-    name = request.form.get("new_name")
-    pass1 = request.form.get("new_pass")
-    pass2 = request.form.get("new_pass_two")
-    
-    #check if username already exists
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    command = 'SELECT * FROM login WHERE username = ?'
-    data = cursor.execute(command, (name,)).fetchall()
-    
-    if len(data) == 0:
-        # doesn't exist
-        
-        # check to see if passwords match
-        if pass1 == pass2:
-            command = 'INSERT INTO login VALUES (?, ?)'
-            cursor.execute(command, (name, pass1))
-            conn.commit()
-            return render_template("login.html", error="Created New User Succesfully")
-            
-        # passwords don't match
-        else:
-            return render_template("new.html", error="Passwords don't match. Try again")
-            
-    # username already exists
-    elif len(data) != 0:
-        return render_template("new.html", error="Username already exists")
     
 @app.route('/user', methods=["GET", "POST"])
+@login_required
 def user():
-    
+    if request.method == "POST":
+        username = request.form.get("new_name")
+        print(username)
+        password = request.form.get("new_pass")
+        user = User.query.filter_by(username=current_user.username).first()
+        
+        #UPDATE USERNAME
+        if username:
+            user.username = username
+            db.session.commit()
+            flash('Username updated')
+            
+        #UPDATE PASSWORD
+        if password:
+            user.password = generate_password_hash(password)
+            db.session.commit()
+            flash('Password updated')
+            
+        
     return render_template("user.html")
 
 @app.route('/delete', methods=["GET", "POST"])
+@login_required
 def delete():
     print('in delete')
     conn = get_db_connection()
@@ -155,7 +215,21 @@ def delete():
     
     return render_template("index.html", data=data)
 
+@app.route('/delete_user', methods=["GET", "POST"])
+@login_required
+def delete_user():
+    name = request.form["name"]
+    
+    #delete
+    User.query.filter_by(username=name).delete()
+    db.session.commit()
+    
+
+    data = User.query.all()
+    return render_template("admin.html", data=data)
+
 @app.route('/add', methods=["GET", "POST"])
+@login_required
 def add():
     if request.method == "POST":
         conn = get_db_connection()
@@ -191,6 +265,7 @@ def add():
     return render_template("add.html", error="")
 
 @app.route('/edit', methods=["GET", "POST"])
+@login_required
 def edit():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -202,6 +277,7 @@ def edit():
     return render_template("edit.html", data=data)
 
 @app.route('/update_q', methods=["POST", "GET"])
+@login_required
 def update_q():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -222,6 +298,7 @@ def update_q():
     return render_template("index.html", data=data)
 
 @app.route('/update_q_p', methods=["POST", "GET"])
+@login_required
 def update_q_p():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -242,6 +319,7 @@ def update_q_p():
     return render_template("small.html", data=data)
 
 @app.route('/update_q_sub', methods=["POST", "GET"])
+@login_required
 def update_q_sub():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -263,6 +341,7 @@ def update_q_sub():
     return render_template("sub.html", data=data)
 
 @app.route("/field_edit", methods=["POST"])
+@login_required
 def field_edit():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -308,6 +387,7 @@ def field_edit():
     return render_template("edit.html", data=data)    
 
 @app.route("/sort_asc", methods=["GET", "POST"])
+@login_required
 def sort_asc():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -337,6 +417,7 @@ def sort_asc():
     return render_template("index.html", data=data) 
 
 @app.route("/sort_desc", methods=["GET", "POST"])
+@login_required
 def sort_desc():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -366,6 +447,7 @@ def sort_desc():
     return render_template("index.html", data=data)
 
 @app.route("/sort_asc_sub", methods=["GET", "POST"])
+@login_required
 def sort_asc_sub():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -394,6 +476,7 @@ def sort_asc_sub():
     return jsonify(data=data)
 
 @app.route("/sort_desc_sub", methods=["GET", "POST"])
+@login_required
 def sort_desc_sub():
     conn = get_db_connection()
     cursor = conn.cursor()
