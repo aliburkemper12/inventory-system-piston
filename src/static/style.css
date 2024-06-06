@@ -98,6 +98,15 @@ button:hover {
     height: 20px;
     width: auto;
 }
+#divider {
+    font-size: 17px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: #3a3671;;
+    margin-right: 3%;
+}
 .d_q {
     color: #ebf7ff;
     background-color: transparent;
@@ -375,4 +384,18 @@ tr th div {
 }
 tr:nth-of-type(even) {
     background-color: #3a3671;
+}
+.user {
+    font-size: 20px;
+}
+#user_btn {
+    font-size: 20px;
+    height: 35px;
+    width: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+#user_container {
+    margin-top: 10%;
+    margin-left: 35%;
 }

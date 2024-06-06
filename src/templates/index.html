@@ -13,7 +13,7 @@
                     {% if current_user.is_authenticated and 'admin' in current_user.roles|map(attribute='name') %}
                     <a id="nav" class="admin" href='/admin'>Admin</a>
                     {% endif %}
-                    <a id="nav"></a>
+                    <a id="divider">|</a>
                     <a id="nav" href="/home">Inventory</a>
                     <a id="nav" href="/add">Add Item</a>
                 <div id="search_container" float="right">
@@ -31,7 +31,6 @@
             <div id="dropdown">
                 <a id="tab" href="/full">Full</a>
                 <a id="tab" href="/partial">Partial</a>
-                <a id="tab" href="/checkout">Checkout</a>
             </div>
         </div>
         <div class="title">

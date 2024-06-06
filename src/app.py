@@ -196,6 +196,8 @@ def partial():
 @app.route('/checkout', methods=["GET", "POST"])
 @login_required
 def checkout():
+    # NOT YET IMPLEMENTED DUE TO SHUT DOWN OF PROJECT
+    # TABLE FOR WHAT COMPUTERS WERE CHECKED OUT TO WHO, WHEN, AND BY WHO
     
     return render_template("index.html")
         

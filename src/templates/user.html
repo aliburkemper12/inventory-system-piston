@@ -27,20 +27,20 @@
         {% for mesg in get_flashed_messages() %}
             <h1 id="flash">{{ mesg }}</h1>
             {% endfor %}
-        <div id="container">
+        <div id="user_container">
             <div>
-                <p>Username: {{ current_user.username }}</p>
+                <p class="user">Username: {{ current_user.username }}</p>
                 <div>
-                    <p>Change Username: </p>
+                    <p class="user">Change Username: </p>
                     <form action="{{ url_for("user")}}" method="post">
                     <input id="new" autocomplete="off" type="text" id="change" name="new_name" placeholder="New username">
-                    <button>Update</button></form>
+                    <button id="user_btn">Update</button></form>
                 </div>
                 <div>
-                    <p>Change Password: </p>
+                    <p class="user">Change Password: </p>
                     <form action="{{ url_for("user")}}" method="post">
                     <input id="new" autocomplete="off" type="password" id="change" name="new_pass" placeholder="New password">
-                    <button>Update</button></form>
+                    <button id="user_btn">Update</button></form>
                 </div>
             </div>
         </div>

@@ -141,5 +141,7 @@ function updateTable(data) {
                         <td width="auto" align="left"><button class="delete" type="submit"><img src="static/trash.png" alt=""></button></td></form>
                     </tr>`;
         document.getElementById('myTable').innerHTML += row;
+
+        location.reload();
     });
 }
