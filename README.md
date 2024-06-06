@@ -1,6 +1,6 @@
 # inventory-system
 Inventory system for the IT department
-Created during a summer internship. (Due to company protocol, never used by any one other then myself when deployed locally from my work computer).
+Created over a course of four weeks during a summer internship. (Due to company protocol, never used by any one other then myself).
 
 # Tech Stack
 
@@ -26,9 +26,11 @@ Deployed using Waitress. Follows CRUD fundamental operations.
 
 This web application allows IT employees to view, edit, add, and delete items from a database. The item database uses SQLite. Users can also sort the data table by ascending or descending values by column.
 
+Search feature.
+
 View items in a specific location.
 
-Displays items that have a low quantity in red. (Quantity alert number is changed by the user and is unqiue to every item).
+Displays items that have a low quantity in red and displays the number of alerts at the top of the page. (Quantity alert number is changed by the user and is unique to every item).
 
 User tab that allows user to change username or password.
 
