@@ -30,6 +30,8 @@ View items in a specific location.
 
 Displays items that have a low quantity in red. (Quantity alert number is changed by the user and is unqiue to every item).
 
+User tab that allows user to change username or password.
+
 There is a login page that requires a username and password. Only the admin account can add or delete users.
 All passwords are hashed and salted using werkzeug.security and stored in a SQL table.
 All views besides the login are protected, and admin only pages require the admin role to view.
