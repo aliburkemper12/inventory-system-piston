@@ -1,7 +1,8 @@
 # inventory-system-piston
 Inventory system for the IT department at Piston Automotive in Wentzville, MO
 Created during a summer internship. (Due to company protocol, never used by any one other then myself when deployed locally from my work computer).
-Tech Stack
+
+# Tech Stack
 
 Front end:
 - JS/HTML/CSS
