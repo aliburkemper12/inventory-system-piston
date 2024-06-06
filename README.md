@@ -24,13 +24,17 @@ Deployed using Waitress. Follows CRUD fundamental operations.
 
 # Features
 
-This web application allows IT employees to view, edit, add, and delete items from a database. The item database uses SQLite. Users can also sort the data table by ascending or descending values by column.
+This web application allows IT employees to view, edit, add, and delete items from a database. The item database uses SQLite. '
 
 Search feature.
 
 View items in a specific location.
 
+Users can also sort the data table by ascending or descending values by column.
+
 Displays items that have a low quantity in red and displays the number of alerts at the top of the page. (Quantity alert number is changed by the user and is unique to every item).
+
+'Partial' tab with simplified table where user can choose an item and increment its quantity by an integer. Useful when receiving shipments.
 
 User tab that allows user to change username or password.
 
