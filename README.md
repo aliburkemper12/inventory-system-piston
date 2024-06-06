@@ -1,6 +1,15 @@
 # inventory-system-piston
 Inventory system for the IT department at Piston Automotive in Wentzville, MO
-Created using, Python, Flask, HTML, CSS, and SQlite. Deployed using Waitress. Follows CRUD fundamental operations.
+Tech Stack
+Front end:
+- JS/HTML/CSS
+- Jinja2
+Back end:
+- Flask
+- Python
+- SQLite
+- SQLAlchemy
+Deployed using Waitress. Follows CRUD fundamental operations.
 
 
 This software has a login page, a home page that displays all current items in the inventory, a search feature, a sort feature, and add/delete/edit features.
