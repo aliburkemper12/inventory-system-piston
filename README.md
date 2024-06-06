@@ -4,11 +4,13 @@ Tech Stack
 Front end:
 - JS/HTML/CSS
 - Jinja2
+  
 Back end:
 - Flask
 - Python
 - SQLite
 - SQLAlchemy
+
 Deployed using Waitress. Follows CRUD fundamental operations.
 
 
