@@ -11,8 +11,13 @@ Front end:
 Back end:
 - Flask
 - Python
-- SQLite
-- SQLAlchemy
+
+Databases:
+- SQLite/SQLAlchemy
+
+Libraries:
+- AJAX
+- Werkzeug.security
 
 Deployed using Waitress. Follows CRUD fundamental operations.
 
