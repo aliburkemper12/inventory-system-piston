@@ -17,6 +17,8 @@ Back end:
 Deployed using Waitress. Follows CRUD fundamental operations.
 
 
+# Uses 
+
 This web application allows IT employees to view, edit, add, and delete items from a database. The item database uses SQLite. Users can also sort the data table by ascending or descending values by column.
 
 There is a login page that required a username and password. Only the admin account can add or delete users.
