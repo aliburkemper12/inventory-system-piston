@@ -51,9 +51,18 @@ During the creation of this project I gained profiency in SQL.
 I had many issues related to front-end development that required me to troubleshoot, debug, and consult the documentation for various frameworks.
 
 Examples:
+Login page
+![Login page](src/static/login_snip.png)
 Home page
 ![Home page](src/static/home_snip.png)
+Increment page
+![Increment page](src/static/partial_snip.png)
 Add item page
 ![Add page](src/static/add_snip.png)
 Edit item page
 ![Edit page](src/static/edit_snip.png)
+User page
+![User page](src/static/user_snip.png)
+Admin page
+![Admin page](src/static/admin_snip.png)
+
