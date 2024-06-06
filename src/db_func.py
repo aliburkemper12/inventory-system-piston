@@ -10,7 +10,6 @@ def create_db():
     try:
         conn = sqlite3.connect(dbName)
         cursor = conn.cursor()
-        print("Database created!")
 
     except Exception as e:
         print("Something bad happened: ", e)
@@ -26,7 +25,6 @@ def create_db():
     '''
     
     cursor.execute(create_query)
-    print("Table created!")
     
 def insert_command(conn, name, quantity, description):
   command = 'INSERT INTO item VALUES (?, ?, ?, ?)'

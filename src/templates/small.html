@@ -37,44 +37,54 @@
         <div class="title">
             <a id="piston">Piston</a> <a id="IT">IT</a> Inventory
         </div>
-        <div id="table_container">
-            <table id="myTable" style="width:50%">
-                <tr>
-                    <th width="10%" align="left"></th>
-                    <th width="50%" align="left">Name<div>
-                        <div><form action="{{ url_for("sort_desc")}}" method="post">
-                        <input type="hidden" name="name" value="1">
-                        <button class="arrow" type="submit"><img src="static/up.png" alt=""></button></form></div>
-                        <div><form action="{{ url_for("sort_asc")}}" method="post">
-                        <input type="hidden" name="name" value="1">
-                        <button class="arrow" type="submit"><img src="static/down.png" alt=""></button></form></div></div>
-                    </th>
-                    <th width="30%" align="left">Quantity<div>
-                        <div><form action="{{ url_for("sort_desc")}}" method="post">
-                        <input type="hidden" name="name" value="2">
-                        <button class="arrow" type="submit"><img src="static/up.png" alt=""></button></form></div>
-                        <div><form action="{{ url_for("sort_asc")}}" method="post">
-                        <input type="hidden" name="name" value="2">
-                        <button class="arrow" type="submit"><img src="static/down.png" alt=""></button></form></div></div>
-                    </th>
-                </tr>
-                {%for item in data%}
-                <tr class="data_row">
-                    <form action="{{ url_for("edit")}}" method="post">
-                    <td width="10%" align="right"><button class="edit" id="count" type="submit"><img src="static/edit_icon.png" alt=""></button></td>
-                    <form id="name" method="post">
-                    <td width="50%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td></form></form>
-                    <td width="30%" display="inline-block" id="quantity" data-quantity="{{ item[1] }}">
-                        <form action="/update_q_p" method="post">
-                        <input type="hidden" name="name" value="{{ item[0] }}">
-                        <input type="text" autocomplete="off" class="d_q" name="d_q" placeholder="{{ item[1] }}"></td></form>
-                    <td data-hidden="{{ item[2] }}" style="display:none;"></td></form>
-                    <form action="{{ url_for("delete")}}" method="post">
-                    <input type="hidden" name="name" value="{{ item[0] }}">
-                    <td width="auto" align="left"><button class="delete" type="submit"><img src="static/trash.png" alt=""></button></td></form>
-                </tr>
-                {%endfor%}
-            </table>
-        </div>
+        <div class="t_container">
+            <div id="table_container_small">
+                <table id="myTable">
+                    <tr>
+                        <th width="10%" align="left"></th>
+                        <th width="50%" align="left">Name<div>
+                            <div><form action="{{ url_for("sort_desc")}}" method="post">
+                            <input type="hidden" name="name" value="1">
+                            <button class="arrow" type="submit"><img src="static/up.png" alt=""></button></form></div>
+                            <div><form action="{{ url_for("sort_asc")}}" method="post">
+                            <input type="hidden" name="name" value="1">
+                            <button class="arrow" type="submit"><img src="static/down.png" alt=""></button></form></div></div>
+                        </th>
+                        <th width="30%" align="left">Quantity<div>
+                            <div><form action="{{ url_for("sort_desc")}}" method="post">
+                            <input type="hidden" name="name" value="2">
+                            <button class="arrow" type="submit"><img src="static/up.png" alt=""></button></form></div>
+                            <div><form action="{{ url_for("sort_asc")}}" method="post">
+                            <input type="hidden" name="name" value="2">
+                            <button class="arrow" type="submit"><img src="static/down.png" alt=""></button></form></div></div>
+                        </th>
+                    </tr>
+                        {%for item in data%}
+                        <tr class="data_row" id="data_row">
+                            <form action="{{ url_for("edit")}}" method="post">
+                            <td width="10%" align="right"><button class="edit" id="count" type="submit"><img src="static/edit_icon.png" alt=""></button></td>
+                            <form id="name" method="post">
+                            <td width="50%"><input type="hidden" name="name" value="{{ item[0] }}">{{ item[0] }}</td></form></form>
+                            <td width="30%" display="inline-block" id="quantity" data-quantity="{{ item[1] }}">
+                                <form action="/update_q_p" method="post">
+                                <input type="hidden" name="name" value="{{ item[0] }}">
+                                <input type="text" autocomplete="off" class="d_q" name="d_q" placeholder="{{ item[1] }}"></td></form>
+                            <td data-hidden="{{ item[2] }}" style="display:none;"></td></form>
+                            <form action="{{ url_for("delete")}}" method="post">
+                            <input type="hidden" name="name" value="{{ item[0] }}">
+                            <td width="auto" align="left"><button class="delete" type="submit"><img src="static/trash.png" alt=""></button></td></form>
+                        </tr>
+                        {%endfor%}
+                </table>
+            </div>
+                <div class="name_container">
+                    <h1 id="small_name" class="center_header">Click Item to Update</h1>
+                    <h2 class="center_header">Increment Value - Enter Value to Add to Quantity</h2>
+                    <p class="center_header">Positive Number for Add, Negative Number for Subtract</p>
+                    <form id="name_form" action="/add_small" method="post">
+                    <input id="new_small" name="new_small" type="text" autocomplete="off" placeholder="Enter number">
+                    </form>
+                </div>
+            </div>
     </body>
 </html>

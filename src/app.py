@@ -109,6 +109,46 @@ def admin():
     
     return render_template("admin.html", data=data)
 
+@app.route('/add_small', methods=["GET", "POST"])
+@login_required
+def add_small():
+    if request.method == "POST":
+        print('method-post')
+        data = request.json
+        name = data["newText"]
+        quantity = data["quantity"]
+        
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        if quantity and name:
+            command = 'UPDATE item SET quantity = quantity + ? WHERE name = ?;'
+            cursor.execute(command, (quantity, name))
+            conn.commit()
+            
+            command = 'UPDATE item SET date = ? WHERE name = ?;'
+            cursor.execute(command, (str(date.today()), name))
+            conn.commit()
+        
+            data = cursor.execute('SELECT name, quantity, alert FROM item').fetchall()
+            data = [{"name": row[0], "quantity": row[1], "alert": row[2]} for row in data]
+        
+            
+            conn.close()
+            
+            return jsonify(data)
+            # return render_template("small.html", data=data)
+            
+    conn = get_db_connection()
+    cursor = conn.cursor()
+        
+    data = cursor.execute('SELECT name, quantity, alert FROM item').fetchall()
+    data = [{"name": row[0], "quantity": row[1], "alert": row[2]} for row in data]
+    
+    conn.close()
+    
+    return jsonify(data)
+
 @app.route('/logout')
 @login_required
 def logout():
@@ -178,7 +218,6 @@ def location():
 def user():
     if request.method == "POST":
         username = request.form.get("new_name")
-        print(username)
         password = request.form.get("new_pass")
         user = User.query.filter_by(username=current_user.username).first()
         
