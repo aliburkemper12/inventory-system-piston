@@ -23,8 +23,15 @@ This web application allows IT employees to view, edit, add, and delete items fr
 
 There is a login page that requires a username and password. Only the admin account can add or delete users.
 All passwords are hashed and salted using werkzeug.security and stored in a SQL table.
+All views besides the login are protected, and admin only pages require the admin role to view.
 
 Deployed locally for the IT deparment to keep track of inventory, including labels which are used everyday and are a critical part of production.
+
+# What I Learned
+
+This project was created using Python-Flask and grew my knowledge with the framework. 
+During the creation of this project I gained profiency in SQL.
+I had many issues related to front-end development that required me to troubleshoot, debug, and consult the documentation for various frameworks.
 
 Examples:
 Home page
